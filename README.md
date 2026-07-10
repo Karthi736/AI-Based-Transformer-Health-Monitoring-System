@@ -1,69 +1,153 @@
 # AI-Based Predictive Transformer Health Monitoring and Preventive Protection System Using Arduino UNO
 
-## Overview
+<p align="center">
+  <img src="./Images/Project_Banner.png" width="100%">
+</p>
 
-Transformer failure can cause power interruption and maintenance problems. This project proposes an AI-based predictive transformer health monitoring system using Arduino UNO.
-
-The system continuously monitors transformer temperature and load condition. Based on the collected parameters, Arduino calculates a Health Score and predicts the transformer risk level.
-
-The system provides automatic cooling control, relay-based protection, and alert indication using LED and buzzer.
-
----
-
-## Objectives
-
-* Monitor transformer temperature continuously
-* Simulate transformer load condition
-* Calculate transformer Health Score
-* Predict failure probability
-* Estimate remaining transformer life
-* Provide automatic cooling control
-* Protect transformer during critical conditions
+<p align="center">
+  An intelligent transformer monitoring system using Arduino UNO for health prediction, risk classification, automatic cooling control, and preventive protection.
+</p>
 
 ---
 
-## Hardware Components
+# Table of Contents
 
-| Component                | Purpose                |
-| ------------------------ | ---------------------- |
-| Arduino UNO              | Main controller        |
-| DHT22 Temperature Sensor | Temperature monitoring |
-| Potentiometer            | Load simulation        |
-| 16x2 I2C LCD             | Status display         |
-| Servo Motor              | Cooling simulation     |
-| Relay Module             | Protection control     |
-| LED                      | Warning indication     |
-| Buzzer                   | Alarm indication       |
+* [Overview](#overview)
+* [Objectives](#objectives)
+* [Features](#features)
+* [Hardware Components](#hardware-components)
+* [Software Requirements](#software-requirements)
+* [System Architecture](#system-architecture)
+* [Working Principle](#working-principle)
+* [Health Score Calculation](#health-score-calculation)
+* [Risk Classification](#risk-classification)
+* [Protection Mechanism](#protection-mechanism)
+* [Circuit Diagram](#circuit-diagram)
+* [Flowchart](#flowchart)
+* [Simulation](#simulation)
+* [LCD Monitoring Output](#lcd-monitoring-output)
+* [Results](#results)
+* [Arduino Code](#arduino-code)
+* [Repository Structure](#repository-structure)
+* [Future Improvements](#future-improvements)
+* [Conclusion](#conclusion)
+* [Author](#author)
+* [License](#license)
 
 ---
 
-## System Features
+# Overview
+
+Transformer is one of the most important components in electrical power systems. Transformer failures may cause power interruption, equipment damage, and increased maintenance costs.
+
+This project presents an **AI-Based Predictive Transformer Health Monitoring and Preventive Protection System using Arduino UNO**.
+
+The system continuously monitors transformer temperature and load conditions. Arduino UNO processes the collected data and calculates a **Transformer Health Score** to evaluate the operating condition.
+
+Based on the health score, the system predicts the risk level and provides automatic protection using cooling control, relay operation, LED indication, and buzzer alerts.
+
+---
+
+# Objectives
+
+* To monitor transformer temperature in real time.
+* To simulate transformer load variations.
+* To calculate transformer health condition.
+* To estimate failure probability.
+* To estimate remaining transformer life.
+* To provide automatic cooling control.
+* To implement preventive protection during abnormal conditions.
+
+---
+
+# Features
 
 * Real-time temperature monitoring
 * Load condition monitoring
 * AI-based Health Score calculation
-* Risk level classification
 * Failure probability estimation
-* Remaining life prediction
-* Automatic cooling activation
-* Relay protection system
-* Fault counting
-* LCD dashboard display
+* Remaining life estimation
+* Risk level prediction
+* Automatic cooling control using servo motor
+* Relay-based protection system
+* LED warning indication
+* Buzzer alert system
+* Fault counting system
+* LCD dashboard monitoring
 
 ---
 
-## Working Principle
+# Hardware Components
+
+| Component                | Purpose                    |
+| ------------------------ | -------------------------- |
+| Arduino UNO              | Main processing controller |
+| DHT22 Temperature Sensor | Temperature measurement    |
+| Potentiometer            | Load simulation            |
+| 16x2 I2C LCD Display     | Status display             |
+| Servo Motor              | Cooling simulation         |
+| Relay Module             | Protection control         |
+| LED                      | Warning indication         |
+| Buzzer                   | Audio alert                |
+
+---
+
+# Software Requirements
+
+| Software        | Purpose               |
+| --------------- | --------------------- |
+| Arduino IDE     | Program development   |
+| Wokwi Simulator | Circuit simulation    |
+| GitHub          | Project documentation |
+
+---
+
+# System Architecture
+
+The proposed system consists of:
+
+* Temperature Monitoring Module
+* Load Monitoring Module
+* Health Score Calculation Module
+* Risk Prediction Module
+* Cooling Control Module
+* Protection Module
+* LCD Display Module
+
+<p align="center">
+<img src="./Images/Block_Diagram.png" width="650">
+</p>
+
+---
+
+# Working Principle
 
 1. DHT22 sensor measures transformer temperature.
-2. Potentiometer simulates transformer load condition.
-3. Arduino UNO processes sensor values.
-4. Health Score is calculated based on temperature and load.
-5. System classifies transformer condition into different risk levels.
-6. Cooling and protection actions are automatically controlled.
+2. Potentiometer simulates transformer loading condition.
+3. Arduino UNO receives sensor data.
+4. Temperature and load values are processed.
+5. Health Score is calculated.
+6. Transformer risk category is identified.
+7. Cooling and protection actions are automatically controlled.
+8. LCD displays transformer health status.
 
 ---
 
-## Health Score Classification
+# Health Score Calculation
+
+The transformer condition is represented using a Health Score from **0 to 100**.
+
+The Health Score depends on:
+
+* Temperature level
+* Load condition
+* Abnormal operating conditions
+
+A higher Health Score represents a healthier transformer condition.
+
+---
+
+# Risk Classification
 
 | Health Score | Risk Level    |
 | ------------ | ------------- |
@@ -74,34 +158,51 @@ The system provides automatic cooling control, relay-based protection, and alert
 
 ---
 
-## Protection Actions
+# Protection Mechanism
 
-### LOW Risk
+## LOW Risk
 
 * Normal operation
 * Cooling OFF
+* No warning indication
 
-### MEDIUM Risk
+## MEDIUM Risk
 
-* Monitoring increased
+* Increased monitoring
 * Cooling assistance activated
 
-### HIGH Risk
+## HIGH Risk
 
-* Cooling ON
-* Warning indication
+* Cooling system ON
+* LED warning activated
 
-### CRITICAL Risk
+## CRITICAL Risk
 
 * Relay protection activated
-* Buzzer alert
-* Fault condition detected
+* Buzzer alert enabled
+* Fault condition recorded
 
 ---
 
-## Simulation
+# Circuit Diagram
 
-The project is simulated using Wokwi platform.
+<p align="center">
+<img src="./Images/Circuit_Diagram.png" width="650">
+</p>
+
+---
+
+# Flowchart
+
+<p align="center">
+<img src="./Images/Flowchart.png" width="550">
+</p>
+
+---
+
+# Simulation
+
+The project is simulated using the Wokwi simulation platform.
 
 Simulation Link:
 
@@ -109,62 +210,137 @@ https://wokwi.com/projects/469066635947975681
 
 ---
 
-## Project Images
+# LCD Monitoring Output
 
-### Block Diagram
+## Normal Condition
 
-![Block Diagram](Images/Block_Diagram.png)
-
-### Circuit Diagram
-
-![Circuit Diagram](Images/Circuit_Diagram.png)
-
-### Flowchart
-
-![Flowchart](Images/Flowchart.png)
+<p align="center">
+<img src="./Images/LCD_Normal.png" width="400">
+</p>
 
 ---
 
-## LCD Monitoring Screens
+## Transformer Status
 
-### Normal Condition
-
-![Normal](Images/LCD_Normal.png)
-
-### Status Display
-
-![Status](Images/LCD_Status.png)
-
-### Prediction Output
-
-![Prediction](Images/LCD_Prediction.png)
-
-### Critical Condition
-
-![Critical](Images/LCD_Critical.png)
+<p align="center">
+<img src="./Images/LCD_Status.png" width="400">
+</p>
 
 ---
 
-## Arduino Code
+## Prediction Output
 
-Main program:
+<p align="center">
+<img src="./Images/LCD_Prediction.png" width="400">
+</p>
 
+---
+
+## Critical Condition
+
+<p align="center">
+<img src="./Images/LCD_Critical.png" width="400">
+</p>
+
+---
+
+# Results
+
+The developed system successfully performs:
+
+* Temperature monitoring
+* Load monitoring
+* Health Score calculation
+* Risk classification
+* Failure prediction
+* Cooling control
+* Relay protection
+* Alert generation
+
+The LCD dashboard provides real-time transformer condition monitoring.
+
+---
+
+# Arduino Code
+
+Main Arduino program:
+
+```text
+Arduino_Code/
+│
+└── AI_Transformer_Health_Monitoring.ino
 ```
-Arduino_Code/AI_Transformer_Health_Monitoring.ino
+
+---
+
+# Repository Structure
+
+```text
+AI-Based-Transformer-Health-Monitoring-System
+│
+├── Arduino_Code
+│   └── AI_Transformer_Health_Monitoring.ino
+│
+├── Documentation
+│   └── Project_Report.pdf
+│
+├── Images
+│   ├── Project_Banner.png
+│   ├── Block_Diagram.png
+│   ├── Circuit_Diagram.png
+│   ├── Flowchart.png
+│   ├── LCD_Normal.png
+│   ├── LCD_Status.png
+│   ├── LCD_Prediction.png
+│   └── LCD_Critical.png
+│
+├── Results
+│
+├── Simulation
+│   └── Wokwi Simulation Link
+│
+└── README.md
 ```
 
 ---
 
-## Future Improvements
+# Future Improvements
 
-* Machine Learning based prediction model
-* IoT cloud monitoring
+* IoT-based remote transformer monitoring
 * Mobile application integration
+* Machine Learning prediction model
 * Real transformer data analysis
-* Advanced fault detection techniques
+* Cloud data storage
+* Advanced fault diagnosis
 
 ---
 
-## Conclusion
+# Conclusion
 
-This project demonstrates an intelligent transformer monitoring system capable of predicting transformer health condition and providing preventive protection using Arduino UNO.
+The **AI-Based Predictive Transformer Health Monitoring and Preventive Protection System using Arduino UNO** provides a low-cost and efficient solution for transformer condition monitoring.
+
+The system continuously evaluates temperature and load conditions, predicts transformer health status, and provides preventive protection using automatic cooling and relay control.
+
+This project demonstrates the implementation of intelligent monitoring techniques in electrical power systems.
+
+---
+
+# Author
+
+**Karthikeyan M**
+
+Department of Electrical and Electronics Engineering
+
+V.S.B College of Engineering Technical Campus
+
+Anna University
+
+Academic Year: 2023–2027
+
+---
+
+# License
+
+This project is licensed under the **MIT License**.
+
+You are free to use, modify, and distribute this project for educational and research purposes with proper credit to the original author.

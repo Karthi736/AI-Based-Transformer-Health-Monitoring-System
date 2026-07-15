@@ -214,10 +214,6 @@ The simulation files and related documentation are available inside the **Simula
 Simulation/
 └── README.md
 ```
-````
-````markdown
----
-
 # LCD Dashboard
 
 The **16×2 I2C LCD** provides a real-time dashboard for monitoring the transformer condition. It displays temperature, load level, Transformer Health Score, and system status.

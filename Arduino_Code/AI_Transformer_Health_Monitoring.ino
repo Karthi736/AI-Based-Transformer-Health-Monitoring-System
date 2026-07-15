@@ -1,6 +1,6 @@
 /*
 ===============================================================================
- Project Title : AI-Based Predictive Transformer Health Monitoring and
+ Project Title : Smart Transformer Health Monitoring and
                  Preventive Protection System Using Arduino UNO
 
  Developed By  : KARTHIKEYAN M

@@ -208,12 +208,13 @@ This automatic protection mechanism helps reduce the possibility of transformer 
 
 # Simulation
 
-The simulation files and related documentation are available inside the **Simulation** folder.
+The simulation files and related documentation are available in the **Simulation** folder.
 
-```text
-Simulation/
-└── README.md
-```
+📁 **Simulation Folder:** [Simulation](./Simulation/)
+
+For detailed simulation setup and execution steps, refer to:
+
+- 📄 [Simulation README](./Simulation/README.md)
 
 ---
 

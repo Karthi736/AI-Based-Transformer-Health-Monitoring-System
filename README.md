@@ -216,33 +216,24 @@ Simulation/
 ```
 # LCD Dashboard
 
-The **16×2 I2C LCD** provides a real-time dashboard for monitoring the transformer condition. It displays temperature, load level, Transformer Health Score, and system status.
+The **16×2 I2C LCD** provides a real-time user interface for monitoring the transformer's operating condition. It continuously updates the measured parameters and system status, enabling quick identification of abnormal conditions.
 
-## Normal Display
+The LCD displays the following information:
 
-<p align="center">
-  <img src="./Images/LCD_Normal.png" alt="LCD Normal Display" width="300">
-</p>
+| LCD Display | Description |
+|-------------|-------------|
+| Temperature | Current transformer temperature measured by the DHT22 sensor |
+| Load | Simulated transformer load from the potentiometer |
+| Health Score | Calculated Transformer Health Score |
+| Risk Level | Current operating condition (Low, Medium, High, or Critical) |
+| Cooling Status | Indicates whether the servo cooling mechanism is ON or OFF |
+| Relay Status | Displays whether the relay is Connected or Disconnected |
+| Fault Counter | Shows the total number of detected fault events |
 
-## Status Display
+The LCD automatically refreshes its display whenever the operating condition changes, allowing the user to monitor the transformer in real time.
 
-<p align="center">
-  <img src="./Images/LCD_Status.png" alt="LCD Status Display" width="300">
-</p>
+```
 
-## Health Score Display
-
-<p align="center">
-  <img src="./Images/LCD_Prediction.png" alt="LCD Health Score Display" width="300">
-</p>
-
-## Critical Condition Display
-
-<p align="center">
-  <img src="./Images/LCD_Critical.png" alt="LCD Critical Display" width="300">
-</p>
-
----
 
 # Experimental Results
 

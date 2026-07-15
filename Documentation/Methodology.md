@@ -1,6 +1,6 @@
 # Methodology
 
-## AI-Based Predictive Transformer Health Monitoring and Preventive Protection System Using Arduino UNO
+## Smart Transformer Health Monitoring and Preventive Protection System Using Arduino UNO
 
 ## 1. System Overview
 

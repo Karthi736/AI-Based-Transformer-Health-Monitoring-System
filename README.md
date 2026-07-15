@@ -214,6 +214,9 @@ The simulation files and related documentation are available inside the **Simula
 Simulation/
 └── README.md
 ```
+
+---
+
 # LCD Dashboard
 
 The **16×2 I2C LCD** provides a real-time user interface for monitoring the transformer's operating condition. It continuously updates the measured parameters and system status, enabling quick identification of abnormal conditions.
@@ -232,8 +235,7 @@ The LCD displays the following information:
 
 The LCD automatically refreshes its display whenever the operating condition changes, allowing the user to monitor the transformer in real time.
 
-```
-
+---
 
 # Experimental Results
 
@@ -274,25 +276,25 @@ The system responded correctly to changing operating conditions and activated th
 ### Test Result 1
 
 <p align="center">
-  <img src="./Results/Test_Result_1_Normal.png" alt="Normal Condition" width="700">
+  <img src="./Results/Test_Result_1_Normal.png" alt="Normal Condition" width="600">
 </p>
 
 ### Test Result 2
 
 <p align="center">
-  <img src="./Results/Test_Result_2_Status.png" alt="Status Display" width="700">
+  <img src="./Results/Test_Result_2_Status.png" alt="Status Display" width="600">
 </p>
 
 ### Test Result 3
 
 <p align="center">
-  <img src="./Results/Test_Result_3_Prediction.png" alt="Health Score Display" width="700">
+  <img src="./Results/Test_Result_3_Prediction.png" alt="Health Score Display" width="600">
 </p>
 
 ### Test Result 4
 
 <p align="center">
-  <img src="./Results/Test_Result_4_Critical.png" alt="Critical Condition" width="700">
+  <img src="./Results/Test_Result_4_Critical.png" alt="Critical Condition" width="600">
 </p>
 
 ---
@@ -411,4 +413,3 @@ Anna University
 This project is licensed under the **MIT License**.
 
 See the **LICENSE** file for more information.
-````

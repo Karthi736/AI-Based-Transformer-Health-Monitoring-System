@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Transformer Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>⚡ Smart Transformer Simulator</h1>
+
+        <!-- 🚀 Quick Scenario Preset Buttons -->
+        <div class="preset-container">
+            <button class="preset-btn normal" onclick="setPreset(230, 50, 35, 45, 'CLOSED')">🟢 Normal</button>
+            <button class="preset-btn warning" onclick="setPreset(240, 80, 68, 60, 'CLOSED')">🟠 Warning</button>
+            <button class="preset-btn critical" onclick="setPreset(255, 95, 88, 80, 'OPEN')">🔴 Critical</button>
+        </div>
+
+        <div class="card">
+            <label><span>Voltage</span><span id="voltageValue">230 V</span></label>
+            <input type="range" id="voltage" min="180" max="260" value="230">
+        </div>
+
+        <div class="card">
+            <label><span>Load %</span><span id="loadValue">65 %</span></label>
+            <input type="range" id="load" min="0" max="100" value="65">
+        </div>
+
+        <div class="card">
+            <label><span>Temperature</span><span id="temperatureValue">35 °C</span></label>
+            <input type="range" id="temperature" min="20" max="100" value="35">
+        </div>
+
+        <div class="card">
+            <label><span>Humidity</span><span id="humidityValue">45 %</span></label>
+            <input type="range" id="humidity" min="20" max="90" value="45">
+        </div>
+
+        <!-- 🔌 Circuit Breaker Status -->
+        <div class="card">
+            <label>Circuit Breaker Status</label>
+            <select id="breakerStatus">
+                <option value="CLOSED">CLOSED (Normal)</option>
+                <option value="OPEN">OPEN (Tripped)</option>
+            </select>
+        </div>
+
+        <button id="sendData">🚀 Update Firebase</button>
+    </div>
+
+    <!-- Quick Preset Helper Script -->
+    <script>
+        function setPreset(v, l, t, h, breakerState) {
+            document.getElementById('voltage').value = v;
+            document.getElementById('voltageValue').innerText = v + ' V';
+            document.getElementById('load').value = l;
+            document.getElementById('loadValue').innerText = l + ' %';
+            document.getElementById('temperature').value = t;
+            document.getElementById('temperatureValue').innerText = t + ' °C';
+            document.getElementById('humidity').value = h;
+            document.getElementById('humidityValue').innerText = h + ' %';
+            document.getElementById('breakerStatus').value = breakerState;
+        }
+    </script>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

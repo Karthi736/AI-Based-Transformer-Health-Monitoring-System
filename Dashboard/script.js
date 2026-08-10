@@ -2,7 +2,7 @@
  * ============================================================================
  * SMART TRANSFORMER HEALTH MONITORING & PREVENTIVE PROTECTION DASHBOARD
  * File: script.js
- * Version: 18.5 (Unified Industrial SCADA & Simulation Engine + Fixes)
+ * Version: 18.6 (Unified Industrial SCADA & Simulation Engine - Fully Fixed)
  * Tech Stack: ES6 Modules, Firebase RTDB, Chart.js, EmailJS, jsPDF
  * ============================================================================
  */
@@ -731,7 +731,7 @@ function generatePDF() {
 }
 
 function generateCSV() {
-    let csv = `Time,Transformer,Voltage(V),Load(%),Temperature(°C),Power(W),Energy(kWh),Health(%),Risk\n`;
+    let csv = "Time,Transformer,Voltage(V),Load(%),Temperature(°C),Power(W),Energy(kWh),Health(%),Risk\n";
 
     const health = calculateHealthScore(state.telemetry.temperature, state.telemetry.load);
     const risk = evaluateRiskProfile(health);
@@ -981,10 +981,8 @@ function initializeTransformerSelector() {
         return;
     }
 
-    // Clear existing options
     selectEl.innerHTML = "";
 
-    // Add TR-001, TR-002, TR-003, TR-004
     TRANSFORMER_IDS.forEach((transformerId) => {
         const option = document.createElement("option");
         option.value = transformerId;
@@ -992,7 +990,6 @@ function initializeTransformerSelector() {
         selectEl.appendChild(option);
     });
 
-    // Restore previously selected transformer
     const savedTransformer = localStorage.getItem("selectedTransformer");
 
     if (TRANSFORMER_IDS.includes(savedTransformer)) {
@@ -1009,28 +1006,23 @@ function initializeTransformerSelector() {
 // SECTION 10: FIREBASE REALTIME DATABASE - TRANSFORMER LIVE DATA
 // ============================================================================
 function connectToTransformer(transformerId) {
-    // Validate transformer
     if (!TRANSFORMER_IDS.includes(transformerId)) {
         console.warn("Invalid transformer ID:", transformerId);
         return;
     }
 
-    // Stop previous Firebase listener
     if (state.system.unsubscribeFirebase) {
         state.system.unsubscribeFirebase();
         state.system.unsubscribeFirebase = null;
     }
 
-    // Firebase path
     const transformerRef = ref(db, `Transformers/${transformerId}`);
 
     console.log(`🔄 Connecting Firebase: Transformers/${transformerId}`);
 
-    // Start realtime listener
     state.system.unsubscribeFirebase = onValue(
         transformerRef,
         (snapshot) => {
-            // Ignore Firebase updates during demo
             if (state.system.demoModeActive) {
                 return;
             }
@@ -1043,9 +1035,6 @@ function connectToTransformer(transformerId) {
                 return;
             }
 
-            // ================================================================
-            // LIVE TELEMETRY
-            // ================================================================
             state.telemetry.voltage = Number(data.voltage ?? state.telemetry.voltage);
             state.telemetry.temperature = Number(data.temperature ?? state.telemetry.temperature);
             state.telemetry.load = Number(data.load ?? state.telemetry.load);
@@ -1053,9 +1042,6 @@ function connectToTransformer(transformerId) {
             state.telemetry.energy = Number(data.energy ?? state.telemetry.energy);
             state.telemetry.humidity = Number(data.humidity ?? state.telemetry.humidity);
 
-            // ================================================================
-            // BREAKER / RELAY STATE
-            // ================================================================
             const remoteBreaker = data.breakerState ?? data.relayState ?? data.breaker ?? data.breakerClosed;
 
             if (remoteBreaker !== undefined) {
@@ -1072,9 +1058,6 @@ function connectToTransformer(transformerId) {
                 }
             }
 
-            // ================================================================
-            // UPDATE DASHBOARD
-            // ================================================================
             updateDashboardUI();
             console.log(`✅ ${transformerId} live data updated`, data);
         },
@@ -1173,7 +1156,9 @@ function loadMaintenanceHistory() {
                 <td>${data.action}</td>
                 <td>${data.technician}</td>
                 <td class="status-green">${data.status}</td>
-                <td><button class="delete-btn" data-id="${child.key}">🗑️</button></td>
+                <td>
+                    <button class="delete-btn" data-id="${child.key}">🗑️</button>
+                </td>
             `;
 
             row.querySelector(".delete-btn").addEventListener("click", () => {
@@ -1457,28 +1442,18 @@ document.addEventListener("DOMContentLoaded", () => {
         selectEl.addEventListener("change", (event) => {
             const selectedId = event.target.value;
 
-            // Validate transformer ID
             if (!TRANSFORMER_IDS.includes(selectedId)) {
                 console.warn("Invalid transformer selected:", selectedId);
                 return;
             }
 
-            // Update application state
             state.selectedTransformer = selectedId;
-
-            // Save selection
             localStorage.setItem("selectedTransformer", selectedId);
 
-            // Connect Firebase listener to selected transformer
             connectToTransformer(selectedId);
-
-            // Load selected transformer's maintenance records
             loadMaintenanceHistory();
 
-            // Log selection
             logSystemEvent(`Switched monitoring view to asset: ${selectedId}`, "NORMAL");
-
-            // Notification
             addNotification(`Monitoring ${selectedId}`, "success");
         });
     }

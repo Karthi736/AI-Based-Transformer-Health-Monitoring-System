@@ -36,6 +36,16 @@ if (window.emailjs) {
 }
 
 // ============================================================================
+// TRANSFORMER CONFIGURATION
+// ============================================================================
+const TRANSFORMER_IDS = [
+    "TR-001",
+    "TR-002",
+    "TR-003",
+    "TR-004"
+];
+
+// ============================================================================
 // SECTION 2: APPLICATION STATE MANAGEMENT
 // ============================================================================
 const state = {
@@ -961,45 +971,117 @@ function updateDashboardUI() {
 }
 
 // ============================================================================
-// SECTION 10: FIREBASE REALTIME DATABASE SYNC & EMAIL
+// TRANSFORMER SELECTOR - TR-001 to TR-004
+// ============================================================================
+function initializeTransformerSelector() {
+    const selectEl = document.getElementById("transformerSelect");
+
+    if (!selectEl) {
+        console.warn("Transformer selector #transformerSelect not found.");
+        return;
+    }
+
+    // Clear existing options
+    selectEl.innerHTML = "";
+
+    // Add TR-001, TR-002, TR-003, TR-004
+    TRANSFORMER_IDS.forEach((transformerId) => {
+        const option = document.createElement("option");
+        option.value = transformerId;
+        option.textContent = transformerId;
+        selectEl.appendChild(option);
+    });
+
+    // Restore previously selected transformer
+    const savedTransformer = localStorage.getItem("selectedTransformer");
+
+    if (TRANSFORMER_IDS.includes(savedTransformer)) {
+        state.selectedTransformer = savedTransformer;
+    } else {
+        state.selectedTransformer = "TR-001";
+        localStorage.setItem("selectedTransformer", "TR-001");
+    }
+
+    selectEl.value = state.selectedTransformer;
+}
+
+// ============================================================================
+// SECTION 10: FIREBASE REALTIME DATABASE - TRANSFORMER LIVE DATA
 // ============================================================================
 function connectToTransformer(transformerId) {
+    // Validate transformer
+    if (!TRANSFORMER_IDS.includes(transformerId)) {
+        console.warn("Invalid transformer ID:", transformerId);
+        return;
+    }
+
+    // Stop previous Firebase listener
     if (state.system.unsubscribeFirebase) {
         state.system.unsubscribeFirebase();
         state.system.unsubscribeFirebase = null;
     }
 
+    // Firebase path
     const transformerRef = ref(db, `Transformers/${transformerId}`);
 
+    console.log(`🔄 Connecting Firebase: Transformers/${transformerId}`);
+
+    // Start realtime listener
     state.system.unsubscribeFirebase = onValue(
         transformerRef,
         (snapshot) => {
-            if (state.system.demoModeActive) return;
+            // Ignore Firebase updates during demo
+            if (state.system.demoModeActive) {
+                return;
+            }
+
             const data = snapshot.val();
-            if (!data) return;
 
-            state.telemetry.voltage = data.voltage ?? state.telemetry.voltage;
-            state.telemetry.temperature = data.temperature ?? state.telemetry.temperature;
-            state.telemetry.load = data.load ?? state.telemetry.load;
-            
-            state.telemetry.power = data.power ?? (state.telemetry.voltage * (state.telemetry.load * 0.5));
-            state.telemetry.energy = data.energy ?? state.telemetry.energy;
-            state.telemetry.humidity = data.humidity ?? state.telemetry.humidity;
+            if (!data) {
+                console.warn(`No Firebase data found for ${transformerId}`);
+                addNotification(`${transformerId}: No live data available`, "warning");
+                return;
+            }
 
+            // ================================================================
+            // LIVE TELEMETRY
+            // ================================================================
+            state.telemetry.voltage = Number(data.voltage ?? state.telemetry.voltage);
+            state.telemetry.temperature = Number(data.temperature ?? state.telemetry.temperature);
+            state.telemetry.load = Number(data.load ?? state.telemetry.load);
+            state.telemetry.power = Number(data.power ?? (state.telemetry.voltage * (state.telemetry.load * 0.5)));
+            state.telemetry.energy = Number(data.energy ?? state.telemetry.energy);
+            state.telemetry.humidity = Number(data.humidity ?? state.telemetry.humidity);
+
+            // ================================================================
+            // BREAKER / RELAY STATE
+            // ================================================================
             const remoteBreaker = data.breakerState ?? data.relayState ?? data.breaker ?? data.breakerClosed;
+
             if (remoteBreaker !== undefined) {
                 if (typeof remoteBreaker === "string") {
-                    state.telemetry.breakerClosed = (remoteBreaker.toUpperCase() === "CLOSED" || remoteBreaker.toUpperCase() === "ON" || remoteBreaker === "1");
+                    const breakerValue = remoteBreaker.trim().toUpperCase();
+                    state.telemetry.breakerClosed = (
+                        breakerValue === "CLOSED" ||
+                        breakerValue === "ON" ||
+                        breakerValue === "1" ||
+                        breakerValue === "TRUE"
+                    );
                 } else {
                     state.telemetry.breakerClosed = Boolean(remoteBreaker);
                 }
             }
 
+            // ================================================================
+            // UPDATE DASHBOARD
+            // ================================================================
             updateDashboardUI();
+            console.log(`✅ ${transformerId} live data updated`, data);
         },
         (error) => {
-            console.error("Firebase Connection Error:", error);
-            logSystemEvent("Firebase Sync Error - Using Local State", "WARNING");
+            console.error(`❌ Firebase error for ${transformerId}:`, error);
+            logSystemEvent(`${transformerId} Firebase Sync Error`, "WARNING");
+            addNotification(`${transformerId}: Firebase connection error`, "warning");
         }
     );
 }
@@ -1091,15 +1173,20 @@ function loadMaintenanceHistory() {
                 <td>${data.action}</td>
                 <td>${data.technician}</td>
                 <td class="status-green">${data.status}</td>
-                <td><button onclick="deleteMaintenanceRecord('${child.key}')">🗑️</button></td>
+                <td><button class="delete-btn" data-id="${child.key}">🗑️</button></td>
             `;
+
+            row.querySelector(".delete-btn").addEventListener("click", () => {
+                deleteMaintenanceRecord(child.key);
+            });
+
             table.prepend(row);
         });
     });
 }
 
 function deleteMaintenanceRecord(id) {
-    const role = localStorage.getItem("role");
+    const role = localStorage.getItem("role") || localStorage.getItem("userRole");
     if (role !== "admin") {
         alert("❌ Admin Access Required");
         return;
@@ -1361,15 +1448,38 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // ============================================================================
+    // TRANSFORMER SELECTION
+    // ============================================================================
+    initializeTransformerSelector();
     const selectEl = document.getElementById("transformerSelect");
     if (selectEl) {
-        selectEl.value = state.selectedTransformer;
-        selectEl.addEventListener("change", (e) => {
-            state.selectedTransformer = e.target.value;
-            localStorage.setItem("selectedTransformer", state.selectedTransformer);
-            connectToTransformer(state.selectedTransformer);
+        selectEl.addEventListener("change", (event) => {
+            const selectedId = event.target.value;
+
+            // Validate transformer ID
+            if (!TRANSFORMER_IDS.includes(selectedId)) {
+                console.warn("Invalid transformer selected:", selectedId);
+                return;
+            }
+
+            // Update application state
+            state.selectedTransformer = selectedId;
+
+            // Save selection
+            localStorage.setItem("selectedTransformer", selectedId);
+
+            // Connect Firebase listener to selected transformer
+            connectToTransformer(selectedId);
+
+            // Load selected transformer's maintenance records
             loadMaintenanceHistory();
-            logSystemEvent(`Switched monitoring view to asset: ${state.selectedTransformer}`, "NORMAL");
+
+            // Log selection
+            logSystemEvent(`Switched monitoring view to asset: ${selectedId}`, "NORMAL");
+
+            // Notification
+            addNotification(`Monitoring ${selectedId}`, "success");
         });
     }
 
@@ -1469,9 +1579,12 @@ document.addEventListener("DOMContentLoaded", () => {
         addMaintenanceBtn.addEventListener("click", saveMaintenanceRecord);
     }
 
+    // ============================================================================
+    // INITIALIZE TRANSFORMER MONITORING
+    // ============================================================================
     connectToTransformer(state.selectedTransformer);
     loadMaintenanceHistory();
-    logSystemEvent("SCADA Core System Online & Synchronized", "NORMAL");
+    logSystemEvent(`SCADA Core System Online - ${state.selectedTransformer}`, "NORMAL");
 });
 
 window.deleteMaintenanceRecord = deleteMaintenanceRecord;

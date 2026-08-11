@@ -5566,8 +5566,764 @@ color:#00ff88;
 }
 
 
+
 #assetRating{
 
 font-size:18px;
 
+}
+
+/* =====================================================
+   TRANSFORMER INFORMATION CARD
+===================================================== */
+
+.transformer-info-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 20px 0;
+
+    padding: 24px;
+
+    background: #1e293b !important;
+
+    border: 1px solid #334155 !important;
+    border-radius: 14px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+
+    color: #f8fafc;
+}
+
+
+/* Header */
+
+.transformer-info-header {
+    text-align: center;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #22d3ee;
+
+    margin-bottom: 22px;
+
+    letter-spacing: 0.3px;
+}
+
+
+/* Information grid */
+
+.transformer-info-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+
+/* Individual information */
+
+.transformer-info-item {
+    background: #182235 !important;
+
+    border: 1px solid #334155;
+
+    border-radius: 10px;
+
+    padding: 15px 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    min-height: 65px;
+
+    transition: 0.2s ease;
+}
+
+
+/* Hover */
+
+.transformer-info-item:hover {
+    border-color: #22d3ee;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 18px rgba(34, 211, 238, 0.12);
+}
+
+
+/* Label */
+
+.info-label {
+    font-size: 12px;
+
+    color: #94a3b8;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+
+    font-weight: 600;
+}
+
+
+/* Value */
+
+.info-value {
+    font-size: 16px;
+
+    color: #f8fafc;
+
+    font-weight: 700;
+}
+
+
+/* Rating */
+
+.info-value.rating {
+    color: #facc15;
+}
+
+.info-value.rating small {
+    color: #e2e8f0;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-left: 5px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .transformer-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .transformer-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .transformer-info-card {
+        padding: 18px;
+    }
+
+}
+/* =====================================================
+   TRANSFORMER INFORMATION
+   PROTECTION STATUS STYLE
+===================================================== */
+
+.transformer-information-section {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 18px 0;
+
+    padding: 20px 24px;
+
+    background: #172235;
+
+    border: 1px solid #334155;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.20);
+
+    color: #ffffff;
+}
+
+
+/* Section title */
+
+.transformer-information-section .section-title {
+    text-align: center;
+
+    color: #22d3ee;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+/* Rows container */
+
+.transformer-info-rows {
+    width: 100%;
+}
+
+
+/* Individual rows */
+
+.transformer-info-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    min-height: 46px;
+
+    padding: 0 2px;
+
+    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+
+    font-size: 14px;
+}
+
+
+/* Remove border from last row */
+
+.transformer-info-row:last-child {
+    border-bottom: none;
+}
+
+
+/* Left side */
+
+.transformer-info-row span {
+    color: #cbd5e1;
+
+    font-weight: 500;
+}
+
+
+/* Right side */
+
+.transformer-info-row strong {
+    color: #f8fafc;
+
+    font-weight: 700;
+
+    text-align: right;
+}
+
+
+/* Rating */
+
+.transformer-info-row .rating-text {
+    color: #facc15;
+}
+
+
+/* Hover */
+
+.transformer-info-row:hover {
+    background: rgba(34, 211, 238, 0.04);
+
+    transition: 0.2s ease;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .transformer-information-section {
+        padding: 18px;
+    }
+
+    .transformer-info-row {
+        min-height: 42px;
+
+        font-size: 13px;
+    }
+
+}
+/* ============================================================
+   TRANSFORMER INFORMATION BOX
+   ============================================================ */
+
+.transformer-information {
+    width: 100%;
+    padding: 20px;
+    margin-top: 15px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(20, 25, 35, 0.98),
+        rgba(10, 15, 22, 0.98)
+    );
+
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    border-radius: 14px;
+
+    box-shadow:
+        0 0 15px rgba(0, 229, 255, 0.08),
+        inset 0 0 20px rgba(0, 229, 255, 0.02);
+
+    color: #ffffff;
+    box-sizing: border-box;
+
+    transition: 0.3s ease;
+}
+
+.transformer-information:hover {
+    border-color: rgba(0, 229, 255, 0.55);
+
+    box-shadow:
+        0 0 25px rgba(0, 229, 255, 0.15),
+        inset 0 0 25px rgba(0, 229, 255, 0.03);
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.transformer-information h3 {
+    margin: 0 0 18px 0;
+
+    padding-bottom: 12px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #00e5ff;
+
+    border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+
+    letter-spacing: 0.5px;
+}
+
+#transformerInfoId {
+    color: #00ff88;
+
+    padding: 5px 10px;
+
+    margin-left: 5px;
+
+    border-radius: 6px;
+
+    background: rgba(0, 255, 136, 0.08);
+
+    border: 1px solid rgba(0, 255, 136, 0.25);
+
+    font-size: 15px;
+}
+
+
+/* ============================================================
+   INFORMATION ROWS
+   ============================================================ */
+
+.transformer-information p {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 8px 0;
+
+    padding: 9px 11px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border-radius: 7px;
+
+    border-left: 2px solid rgba(0, 229, 255, 0.25);
+
+    font-size: 13px;
+
+    color: #9fa9b5;
+}
+
+.transformer-information p span {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   LIVE TELEMETRY SECTION
+   ============================================================ */
+
+.transformer-information h4 {
+    margin: 20px 0 12px 0;
+
+    padding: 9px 12px;
+
+    border-radius: 7px;
+
+    background: rgba(0, 229, 255, 0.06);
+
+    border: 1px solid rgba(0, 229, 255, 0.15);
+
+    color: #00e5ff;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+}
+
+
+/* ============================================================
+   LIVE VALUES
+   ============================================================ */
+
+#transformerLiveTemperature,
+#transformerLiveLoad,
+#transformerLiveVoltage,
+#transformerLivePower,
+#transformerLiveEnergy,
+#transformerLiveHumidity {
+    color: #00ff88;
+
+    font-weight: 700;
+
+    font-family: "Courier New", monospace;
+
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.25);
+}
+
+
+/* ============================================================
+   BREAKER STATUS
+   ============================================================ */
+
+#transformerLiveBreaker {
+    padding: 4px 9px;
+
+    border-radius: 5px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    background: rgba(0, 255, 136, 0.08);
+
+    color: #00ff88;
+
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+
+/* ============================================================
+   LIVE VALUE PULSE
+   ============================================================ */
+
+#transformerLiveTemperature,
+#transformerLiveLoad,
+#transformerLiveVoltage,
+#transformerLivePower,
+#transformerLiveEnergy,
+#transformerLiveHumidity,
+#transformerLiveBreaker {
+    transition: all 0.3s ease;
+}
+
+
+/* ============================================================
+   MOBILE RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .transformer-information {
+        padding: 15px;
+    }
+
+    .transformer-information h3 {
+        font-size: 16px;
+    }
+
+    .transformer-information p {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    #transformerInfoId {
+        font-size: 13px;
+    }
+}
+/* ============================================================
+   TRANSFORMER INFORMATION
+   SAME STYLE AS PROTECTION STATUS BOX
+   ============================================================ */
+
+.transformer-information {
+    position: relative;
+    padding: 18px 20px;
+    margin-top: 15px;
+
+    background: rgba(15, 20, 28, 0.95);
+
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    border-radius: 12px;
+
+    box-shadow:
+        0 0 12px rgba(0, 229, 255, 0.08),
+        inset 0 0 12px rgba(0, 229, 255, 0.025);
+
+    color: #ffffff;
+
+    overflow: hidden;
+
+    transition: all 0.3s ease;
+}
+
+
+/* ============================================================
+   TOP GLOW LINE
+   ============================================================ */
+
+.transformer-information::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #00e5ff,
+        transparent
+    );
+
+    opacity: 0.8;
+}
+
+
+/* ============================================================
+   HOVER EFFECT
+   ============================================================ */
+
+.transformer-information:hover {
+    border-color: rgba(0, 229, 255, 0.5);
+
+    box-shadow:
+        0 0 20px rgba(0, 229, 255, 0.12),
+        inset 0 0 15px rgba(0, 229, 255, 0.03);
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.transformer-information h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    color: #00e5ff;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    letter-spacing: 0.6px;
+}
+
+
+/* ============================================================
+   SELECTED TRANSFORMER ID
+   ============================================================ */
+
+#transformerInfoId {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 10px;
+
+    border-radius: 5px;
+
+    background: rgba(0, 255, 136, 0.08);
+
+    border: 1px solid rgba(0, 255, 136, 0.3);
+
+    color: #00ff88;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.08);
+}
+
+
+/* ============================================================
+   INFORMATION ROW
+   ============================================================ */
+
+.transformer-information p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 6px 0;
+    padding: 8px 10px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border-radius: 6px;
+
+    border: 1px solid rgba(255, 255, 255, 0.04);
+
+    color: #8e98a5;
+
+    font-size: 12px;
+}
+
+
+/* LABEL */
+
+.transformer-information p {
+    font-weight: 500;
+}
+
+
+/* VALUE */
+
+.transformer-information p span {
+    color: #e8edf2;
+
+    font-weight: 700;
+
+    font-family: "Courier New", monospace;
+}
+
+
+/* ============================================================
+   LIVE TELEMETRY HEADER
+   ============================================================ */
+
+.transformer-information h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 15px 0 9px 0;
+    padding: 8px 10px;
+
+    background: rgba(0, 229, 255, 0.05);
+
+    border-left: 3px solid #00e5ff;
+
+    border-radius: 5px;
+
+    color: #00e5ff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* ============================================================
+   LIVE VALUE COLOUR
+   ============================================================ */
+
+#transformerLiveTemperature,
+#transformerLiveLoad,
+#transformerLiveVoltage,
+#transformerLivePower,
+#transformerLiveEnergy,
+#transformerLiveHumidity {
+
+    color: #00ff88;
+
+    font-weight: 700;
+
+    font-family: "Courier New", monospace;
+
+    text-shadow:
+        0 0 6px rgba(0, 255, 136, 0.2);
+}
+
+
+/* ============================================================
+   BREAKER STATUS
+   ============================================================ */
+
+#transformerLiveBreaker {
+
+    padding: 3px 8px;
+
+    border-radius: 4px;
+
+    background: rgba(0, 255, 136, 0.08);
+
+    border: 1px solid rgba(0, 255, 136, 0.25);
+
+    color: #00ff88;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   LIVE UPDATE EFFECT
+   ============================================================ */
+
+#transformerLiveTemperature,
+#transformerLiveLoad,
+#transformerLiveVoltage,
+#transformerLivePower,
+#transformerLiveEnergy,
+#transformerLiveHumidity,
+#transformerLiveBreaker {
+
+    transition:
+        color 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .transformer-information {
+        padding: 15px;
+    }
+
+    .transformer-information h3 {
+        font-size: 14px;
+    }
+
+    .transformer-information p {
+        font-size: 11px;
+        padding: 7px 8px;
+    }
+
+    .transformer-information h4 {
+        font-size: 10px;
+    }
 }

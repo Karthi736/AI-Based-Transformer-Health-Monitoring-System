@@ -2,7 +2,7 @@
  * ============================================================================
  * SMART TRANSFORMER HEALTH MONITORING & PREVENTIVE PROTECTION DASHBOARD
  * File: script.js
- * Version: 18.6 (Unified Industrial SCADA & Simulation Engine - Fully Fixed)
+ * Version: 24.0 (Industrial SCADA Engine - With updateTransformerInformation)
  * Tech Stack: ES6 Modules, Firebase RTDB, Chart.js, EmailJS, jsPDF
  * ============================================================================
  */
@@ -36,7 +36,7 @@ if (window.emailjs) {
 }
 
 // ============================================================================
-// TRANSFORMER CONFIGURATION
+// TRANSFORMER CONFIGURATION & INFORMATION MAP
 // ============================================================================
 const TRANSFORMER_IDS = [
     "TR-001",
@@ -44,6 +44,40 @@ const TRANSFORMER_IDS = [
     "TR-003",
     "TR-004"
 ];
+
+const TRANSFORMER_INFO = {
+    "TR-001": {
+        rating: "250 kVA",
+        voltage: "11kV / 415V",
+        cooling: "ONAN",
+        manufacturer: "ABB",
+        location: "Coimbatore"
+    },
+
+    "TR-002": {
+        rating: "315 kVA",
+        voltage: "11kV / 415V",
+        cooling: "ONAN",
+        manufacturer: "Siemens",
+        location: "Chennai"
+    },
+
+    "TR-003": {
+        rating: "500 kVA",
+        voltage: "11kV / 433V",
+        cooling: "ONAN",
+        manufacturer: "Schneider",
+        location: "Salem"
+    },
+
+    "TR-004": {
+        rating: "630 kVA",
+        voltage: "11kV / 433V",
+        cooling: "ONAN",
+        manufacturer: "ABB",
+        location: "Erode"
+    }
+};
 
 // ============================================================================
 // SECTION 2: APPLICATION STATE MANAGEMENT
@@ -111,7 +145,7 @@ function updateSystemStatus() {
 }
 
 // ============================================================================
-// COMMUNICATION DIAGNOSTICS & WEATHER API ENGINE
+// COMMUNICATION DIAGNOSTICS & DYNAMIC WEATHER API ENGINE
 // ============================================================================
 function updateCommunicationStatus() {
     setElementText("arduinoStatus", "🟢 CONNECTED");
@@ -130,24 +164,35 @@ function updateCommunicationStatus() {
 }
 
 async function updateWeather() {
-    const city = "Coimbatore";
+    const city = TRANSFORMER_INFO[state.selectedTransformer]?.location || "Coimbatore";
+    console.log("🌤 Weather location:", city);
+
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WEATHER_API}`;
 
     try {
         const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error("Weather API error");
+        }
+
         const data = await response.json();
 
-        document.getElementById("weatherTemp").innerHTML = Math.round(data.main.temp) + "°C";
-        document.getElementById("weatherDesc").innerHTML = data.weather[0].description;
-        document.getElementById("weatherHumidity").innerHTML = data.main.humidity + " %";
-        document.getElementById("weatherWind").innerHTML = data.wind.speed + " m/s";
+        setElementText("weatherLocation", city);
+        setElementText("weatherTemp", Math.round(data.main.temp) + "°C");
+        setElementText("weatherDesc", data.weather[0].description);
+        setElementText("weatherHumidity", data.main.humidity + " %");
+        setElementText("weatherWind", data.wind.speed + " m/s");
+
+        console.log(`✅ Weather updated for ${city}`);
 
         if (data.main.temp >= 35) {
             addNotification("High Ambient Temperature. Transformer Cooling Recommended.", "warning");
         }
     } catch (error) {
-        console.log(error);
-        document.getElementById("weatherDesc").innerHTML = "Weather Offline";
+        console.error("❌ Weather Error:", error);
+        setElementText("weatherLocation", city);
+        setElementText("weatherDesc", "Weather Offline");
     }
 }
 
@@ -228,6 +273,67 @@ function applyRolePermissions(role) {
     if (userRoleEl) {
         userRoleEl.textContent = role.toUpperCase();
     }
+}
+
+// ============================================================================
+// TRANSFORMER INFORMATION BOX - DYNAMIC UPDATE
+// ============================================================================
+function updateTransformerInformation() {
+    const transformerId = state.selectedTransformer;
+    const info = TRANSFORMER_INFO[transformerId];
+
+    if (!info) {
+        console.warn("Transformer information not found:", transformerId);
+        return;
+    }
+
+    // Main transformer ID
+    setElementText("transformerInfoId", transformerId);
+
+    // Static transformer specifications
+    setElementText("transformerRating", info.rating);
+    setElementText("transformerVoltage", info.voltage);
+    setElementText("transformerCooling", info.cooling);
+    setElementText("transformerManufacturer", info.manufacturer);
+    setElementText("transformerLocation", info.location);
+
+    // Live values from Firebase
+    setElementText(
+        "transformerLiveTemperature",
+        `${state.telemetry.temperature} °C`
+    );
+
+    setElementText(
+        "transformerLiveLoad",
+        `${state.telemetry.load.toFixed(1)} %`
+    );
+
+    setElementText(
+        "transformerLiveVoltage",
+        `${state.telemetry.voltage} V`
+    );
+
+    setElementText(
+        "transformerLivePower",
+        `${state.telemetry.power} W`
+    );
+
+    setElementText(
+        "transformerLiveEnergy",
+        `${state.telemetry.energy.toFixed(1)} kWh`
+    );
+
+    setElementText(
+        "transformerLiveHumidity",
+        `${state.telemetry.humidity} %`
+    );
+
+    setElementText(
+        "transformerLiveBreaker",
+        state.telemetry.breakerClosed ? "🟢 CLOSED" : "🔴 OPEN"
+    );
+
+    console.log(`📊 Transformer Information Updated: ${transformerId}`);
 }
 
 // ============================================================================
@@ -560,6 +666,7 @@ function updateSLDStatus(temp, loadVal, breakerClosed) {
     setElementText("sldTemp", `${temp}°C`);
     setElementText("sldLoad", `${loadVal.toFixed(1)}%`);
     setElementText("sldLoadVal", `OUTPUT: ${loadVal.toFixed(1)}%`);
+    setElementText("sldTransformerId", state.selectedTransformer);
 
     if (temp >= 60) {
         setElementText("sldFanState", "FAN: ON 🌀");
@@ -611,7 +718,7 @@ function updateSLDStatus(temp, loadVal, breakerClosed) {
         setElementText("relayBadge", "ALERT");
         setElementClass("relayBadge", "box-badge status-orange");
         setElementText("loadBadge", "ONLINE");
-        setElementClass("loadBadge", "box-badge status-green");
+        setElementClass("box-badge status-green");
     } else {
         if (gridBox) gridBox.className = "sld-box normal";
         if (cbBox) cbBox.className = "sld-box normal";
@@ -627,7 +734,7 @@ function updateSLDStatus(temp, loadVal, breakerClosed) {
         setElementText("relayBadge", "ACTIVE");
         setElementClass("relayBadge", "box-badge status-green");
         setElementText("loadBadge", "ONLINE");
-        setElementClass("loadBadge", "box-badge status-green");
+        setElementClass("box-badge status-green");
     }
 }
 
@@ -769,6 +876,8 @@ function updateSensorHealth() {
 }
 
 function updateDashboardUI() {
+    updateTransformerInformation();
+
     const { voltage, load, power, energy, temperature, humidity, breakerClosed } = state.telemetry;
 
     setElementText("voltage", `${voltage} V`);
@@ -970,9 +1079,6 @@ function updateDashboardUI() {
     updateEfficiency();
 }
 
-// ============================================================================
-// TRANSFORMER SELECTOR - TR-001 to TR-004
-// ============================================================================
 function initializeTransformerSelector() {
     const selectEl = document.getElementById("transformerSelect");
 
@@ -1142,28 +1248,41 @@ function saveMaintenanceRecord() {
 }
 
 function loadMaintenanceHistory() {
-    const maintenanceRef = ref(db, `Transformers/${state.selectedTransformer}/Maintenance_Log`);
+    const maintenanceRef = ref(
+        db,
+        `Transformers/${state.selectedTransformer}/Maintenance_Log`
+    );
+
     onValue(maintenanceRef, (snapshot) => {
         const table = document.getElementById("maintenanceLog");
         if (!table) return;
+
         table.innerHTML = "";
+
         snapshot.forEach((child) => {
             const data = child.val();
             const row = document.createElement("tr");
+
             row.innerHTML = `
-                <td>${data.date}</td>
-                <td>${data.fault}</td>
-                <td>${data.action}</td>
-                <td>${data.technician}</td>
-                <td class="status-green">${data.status}</td>
+                <td>${data.date || ""}</td>
+                <td>${data.fault || ""}</td>
+                <td>${data.action || ""}</td>
+                <td>${data.technician || ""}</td>
+                <td class="status-green">${data.status || ""}</td>
                 <td>
-                    <button class="delete-btn" data-id="${child.key}">🗑️</button>
+                    <button
+                        class="delete-btn"
+                        data-id="${child.key}">
+                        🗑️
+                    </button>
                 </td>
             `;
 
-            row.querySelector(".delete-btn").addEventListener("click", () => {
-                deleteMaintenanceRecord(child.key);
-            });
+            row
+                .querySelector(".delete-btn")
+                .addEventListener("click", () => {
+                    deleteMaintenanceRecord(child.key);
+                });
 
             table.prepend(row);
         });
@@ -1434,9 +1553,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ============================================================================
-    // TRANSFORMER SELECTION
+    // TRANSFORMER SELECTION & INITIALIZATION
     // ============================================================================
     initializeTransformerSelector();
+
     const selectEl = document.getElementById("transformerSelect");
     if (selectEl) {
         selectEl.addEventListener("change", (event) => {
@@ -1448,13 +1568,29 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             state.selectedTransformer = selectedId;
+
             localStorage.setItem("selectedTransformer", selectedId);
 
+            console.log("🔄 Selected Transformer:", selectedId);
+            console.log("📍 Location:", TRANSFORMER_INFO[selectedId].location);
+
+            // Update information box immediately
+            updateTransformerInformation();
+
+            // Connect to selected transformer Firebase path
             connectToTransformer(selectedId);
             loadMaintenanceHistory();
+            updateWeather();
 
-            logSystemEvent(`Switched monitoring view to asset: ${selectedId}`, "NORMAL");
-            addNotification(`Monitoring ${selectedId}`, "success");
+            logSystemEvent(
+                `Switched monitoring view to asset: ${selectedId}`,
+                "NORMAL"
+            );
+
+            addNotification(
+                `Monitoring ${selectedId}`,
+                "success"
+            );
         });
     }
 

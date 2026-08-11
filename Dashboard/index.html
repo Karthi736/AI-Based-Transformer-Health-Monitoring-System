@@ -62,12 +62,7 @@
     <!-- TRANSFORMER SELECTOR -->
     <div class="selector-panel">
         <label><b>🏭 Select Transformer :</b></label>
-        <select id="transformerSelect">
-            <option value="TR-001">TR-001</option>
-            <option value="TR-002">TR-002</option>
-            <option value="TR-003">TR-003</option>
-            <option value="TR-004">TR-004</option>
-        </select>
+        <select id="transformerSelect"></select>
     </div>
 
     <!-- SIMULATION PANEL -->
@@ -206,7 +201,7 @@
                 <div class="health-score-box">
                     <h4>Overall Asset Health Score</h4>
                     <h1 id="assetScore">96%</h1>
-                    <p id="assetRating">⭐⭐⭐⭐⭐ Excellent</p>
+                    <p id="assetRatingScore">⭐⭐⭐⭐⭐ Excellent</p>
                 </div>
             </div>
 
@@ -272,7 +267,7 @@
                 <div id="tfBox" class="sld-box normal">
                     <div class="box-icon">🗄️</div>
                     <div class="box-title">SMART TRANSFORMER</div>
-                    <div class="box-sub">TR-001</div>
+                    <div class="box-sub" id="sldTransformerId">TR-001</div>
                     <div class="box-metrics">
                         <span>TEMP: <b id="sldTemp">35°C</b></span>
                         <span>LOAD: <b id="sldLoad">65%</b></span>
@@ -390,24 +385,83 @@
         <!-- WEATHER CONDITION CARD -->
         <div class="weather-card">
             <h2>🌤 Weather Condition</h2>
-            <p>Location : <b>Coimbatore</b></p>
+            <p>Location : <b id="weatherLocation">Coimbatore</b></p>
             <h1 id="weatherTemp">--°C</h1>
             <p id="weatherDesc">Loading...</p>
             <p>Humidity : <b id="weatherHumidity">--%</b></p>
             <p>Wind : <b id="weatherWind">-- m/s</b></p>
         </div>
 
-        <!-- Transformer Information -->
-        <div class="info-card">
-            <h3>🏭 Transformer Information</h3>
-            <table class="info-table">
-                <tr><td>Asset ID</td><td><b>TR-001</b></td></tr>
-                <tr><td>Rating</td><td>250 kVA</td></tr>
-                <tr><td>Voltage Level</td><td>11kV / 415V</td></tr>
-                <tr><td>Cooling Type</td><td>ONAN</td></tr>
-                <tr><td>Manufacturer</td><td>ABB</td></tr>
-                <tr><td>Location</td><td>Substation A</td></tr>
-            </table>
+        <!-- =====================================================
+             TRANSFORMER INFORMATION (UPDATED FORMAT)
+        ===================================================== -->
+        <div class="transformer-information">
+            <h3>
+                TRANSFORMER INFORMATION
+                <span id="transformerInfoId">TR-001</span>
+            </h3>
+
+            <p>
+                Rating
+                <span id="transformerRating">250 kVA</span>
+            </p>
+
+            <p>
+                Voltage
+                <span id="transformerVoltage">11kV / 415V</span>
+            </p>
+
+            <p>
+                Cooling
+                <span id="transformerCooling">ONAN</span>
+            </p>
+
+            <p>
+                Manufacturer
+                <span id="transformerManufacturer">ABB</span>
+            </p>
+
+            <p>
+                Location
+                <span id="transformerLocation">Coimbatore</span>
+            </p>
+
+            <h4>● LIVE TRANSFORMER TELEMETRY</h4>
+
+            <p>
+                Temperature
+                <span id="transformerLiveTemperature">-- °C</span>
+            </p>
+
+            <p>
+                Load
+                <span id="transformerLiveLoad">-- %</span>
+            </p>
+
+            <p>
+                Voltage
+                <span id="transformerLiveVoltage">-- V</span>
+            </p>
+
+            <p>
+                Active Power
+                <span id="transformerLivePower">-- W</span>
+            </p>
+
+            <p>
+                Energy
+                <span id="transformerLiveEnergy">-- kWh</span>
+            </p>
+
+            <p>
+                Humidity
+                <span id="transformerLiveHumidity">-- %</span>
+            </p>
+
+            <p>
+                Breaker
+                <span id="transformerLiveBreaker">--</span>
+            </p>
         </div>
 
         <!-- Protection Status -->

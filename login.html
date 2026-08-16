@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ SCADA Gateway - Transformer Command Center</title>
+    
+    <!-- FAVICON FIX -->
+    <link rel="icon" href="data:,">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #06090e;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* MAIN SPLIT CONTAINER */
+        .split-wrapper {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* LEFT SIDE: BRANDING & SYSTEM STATS */
+        .brand-section {
+            flex: 1.2;
+            background: linear-gradient(135deg, #091322 0%, #030710 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            position: relative;
+            border-right: 1px solid rgba(0, 229, 255, 0.15);
+        }
+
+        .brand-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 229, 255, 0.08) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .logo-floating-container {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(0, 229, 255, 0.03);
+            border: 2px solid rgba(0, 229, 255, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.25);
+            margin-bottom: 25px;
+            animation: floatAnim 4s ease-in-out infinite;
+        }
+
+        .logo-floating-container img {
+            width: 85px;
+            height: 85px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.6));
+        }
+
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .brand-title {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #00e5ff;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
+        .brand-subtitle {
+            color: #7a8b9e;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            margin-bottom: 35px;
+        }
+
+        .status-badge-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .badge {
+            background: rgba(13, 22, 38, 0.8);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00e5ff;
+            letter-spacing: 0.5px;
+        }
+
+        .badge.online {
+            border-color: rgba(0, 255, 136, 0.4);
+            color: #00ff88;
+        }
+
+        /* RIGHT SIDE: MODERN LOGIN FORM */
+        .form-section {
+            flex: 1;
+            background: #0a0e17;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .form-box {
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .form-header {
+            margin-bottom: 35px;
+        }
+
+        .form-header h3 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #5d6f85;
+            font-size: 0.9rem;
+        }
+
+        .field-group {
+            margin-bottom: 22px;
+        }
+
+        .field-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: #8fa0b5;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .field-group input, .field-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: #04070d;
+            border: 1px solid #1a2638;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .field-group input:focus, .field-group select:focus {
+            border-color: #00e5ff;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+            background: #060b14;
+        }
+
+        .field-group select option {
+            background: #0a0e17;
+            color: #ffffff;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00e5ff, #0088ff);
+            border: none;
+            border-radius: 8px;
+            color: #030710;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        #statusMessage {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            min-height: 22px;
+            text-align: center;
+        }
+
+        /* RESPONSIVE DESIGN FOR MOBILE / SMALLER SCREENS */
+        @media (max-width: 850px) {
+            .split-wrapper {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+            .brand-section {
+                padding: 40px 20px;
+                flex: none;
+            }
+            .form-section {
+                padding: 40px 20px;
+                flex: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="split-wrapper">
+        <!-- LEFT PANEL: BRANDING & SYSTEM INDICATORS -->
+        <div class="brand-section">
+            <div class="logo-floating-container">
+                <img src="images/transformer.png" alt="Transformer Logo">
+            </div>
+
+            <h1 class="brand-title">TRANSFORMER COMMAND</h1>
+            <p class="brand-subtitle">SCADA Grid Monitoring & Control Terminal</p>
+
+            <div class="status-badge-group">
+                <span class="badge online">● SYSTEM ONLINE</span>
+                <span class="badge">⚡ 11kV GRID ACTIVE</span>
+                <span class="badge">🔒 ENCRYPTED</span>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: LOGIN ACCESS -->
+        <div class="form-section">
+            <div class="form-box">
+                <div class="form-header">
+                    <h3>Authorized Access</h3>
+                    <p>Enter your SCADA credentials to initialize session</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="field-group">
+                        <label>User ID</label>
+                        <input type="text" id="username" placeholder="e.g. admin" required autocomplete="off">
+                    </div>
+
+                    <div class="field-group">
+                        <label>Security Password</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label>Operator Role</label>
+                        <select id="role">
+                            <option value="admin">System Administrator</option>
+                            <option value="operator">Grid Operator</option>
+                            <option value="viewer">Field Viewer</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="loginBtn" class="login-btn">LOG IN TO COMMAND</button>
+                    <div id="statusMessage"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXTERNAL SCRIPT LINK -->
+    <script src="login.js"></script>
+
+</body>
+</html>

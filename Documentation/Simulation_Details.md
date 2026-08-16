@@ -2,7 +2,7 @@
 
 ## 1. Overview
 
-The transformer health monitoring and preventive protection system was simulated using an ESP32-based monitoring setup.
+The Industrial Transformer Health Monitoring SCADA System was simulated using an ESP32-based monitoring setup.
 
 The simulation demonstrates real-time transformer condition monitoring, health assessment, risk classification, alarm generation, cooling control, relay-based protection, and remote data transmission to Firebase for SCADA dashboard visualization.
 
@@ -13,26 +13,32 @@ The simulation demonstrates real-time transformer condition monitoring, health a
 The system was developed and tested using an online electronics simulation environment.
 
 ### Main Controller
+
 - ESP32
 
 ### Sensors / Inputs
+
 - DHT22 – Temperature and Humidity Monitoring
 - Potentiometer – Load Percentage Simulation
 
 ### Display
+
 - 16×2 I2C LCD
 
 ### Protection and Control
+
 - Relay Module
 - Servo Motor – Cooling Control
 - LED – Visual Warning
 - Buzzer – Audible Alarm
 
 ### Cloud Communication
+
 - Wi-Fi
 - Firebase
 
 ### Monitoring Interface
+
 - SCADA Web Dashboard
 
 ---
@@ -44,13 +50,13 @@ The simulation uses the following parameters to represent transformer operating 
 | Parameter | Simulation Input | Purpose |
 |---|---|---|
 | Temperature | DHT22 | Monitors transformer temperature |
-| Humidity | DHT22 | Monitors environmental/insulation condition |
+| Humidity | DHT22 | Monitors humidity as an additional transformer condition parameter |
 | Load | Potentiometer | Simulates transformer load percentage |
-| Health Score | ESP32 | Determines overall transformer condition |
-| Risk Level | ESP32 | Classifies transformer condition |
+| Health Score | ESP32 | Determines the overall transformer condition |
+| Risk Level | ESP32 | Classifies the transformer condition |
 | Relay Status | ESP32 | Provides preventive protection |
 | Cooling Status | Servo | Represents automatic cooling action |
-| Alarm Status | LED + Buzzer | Indicates abnormal/critical condition |
+| Alarm Status | LED + Buzzer | Indicates abnormal or critical conditions |
 
 ---
 
@@ -66,15 +72,15 @@ The simulation follows the sequence below:
 6. A transformer health score is calculated.
 7. The corresponding risk level is determined.
 8. The operating status is displayed on the 16×2 I2C LCD.
-9. In normal conditions, the transformer remains in normal operating mode.
-10. When the risk level increases, warning/protection actions are activated.
+9. Under normal conditions, the transformer remains in normal operating mode.
+10. When the risk level increases, warning and preventive protection actions are activated.
 11. Under critical conditions:
     - Relay protection is activated.
     - Servo cooling is activated.
     - LED warning is activated.
     - Buzzer alarm is activated.
 12. The monitoring data is transmitted through Wi-Fi to Firebase.
-13. The SCADA web dashboard retrieves and displays the real-time transformer data.
+13. The SCADA web dashboard retrieves and displays the transformer monitoring data.
 14. The monitoring process continues continuously.
 
 ---
@@ -106,7 +112,7 @@ When a critical transformer condition is detected, the ESP32 activates the preve
 - Critical status is transmitted to Firebase.
 - SCADA dashboard displays the updated protection status.
 
-This demonstrates how abnormal transformer conditions can be detected and addressed automatically.
+This demonstrates how abnormal transformer operating conditions can be detected and addressed automatically.
 
 ---
 
@@ -148,7 +154,7 @@ The dashboard provides:
 - Fault Count
 - Transformer Status
 
-This allows the transformer condition to be monitored remotely through a web interface.
+This allows the transformer condition to be monitored remotely through a web-based SCADA interface.
 
 ---
 
@@ -160,7 +166,7 @@ Different operating conditions can be simulated by changing the temperature and 
 
 Low temperature and normal load are applied.
 
-Expected result:
+**Expected Result:**
 
 - Low risk
 - Normal monitoring
@@ -172,18 +178,18 @@ Expected result:
 
 Temperature or load is increased.
 
-Expected result:
+**Expected Result:**
 
 - Risk level increases
 - Health score decreases
 - Warning indication is generated
-- LCD displays updated condition
+- LCD displays the updated condition
 
 ### Critical Condition
 
-Temperature/load conditions are increased to a critical level.
+Temperature and/or load conditions are increased to a critical level.
 
-Expected result:
+**Expected Result:**
 
 - Critical risk is detected
 - Relay protection is activated
@@ -201,16 +207,20 @@ The simulation successfully demonstrates the complete monitoring and preventive 
 
 The ESP32 collects transformer operating parameters, evaluates transformer health, determines the risk level, activates preventive protection during critical conditions, and transmits the monitoring information to Firebase.
 
-The SCADA dashboard provides remote visualization of the transformer operating condition.
+The SCADA dashboard provides remote visualization of the transformer operating condition, protection status, and associated monitoring parameters.
+
+The simulation therefore validates the basic integration of sensing, edge processing, preventive protection, cloud communication, and SCADA visualization.
 
 ---
 
 ## 11. Conclusion
 
-The simulation validates the basic working concept of the AI-Based Transformer Health Monitoring and Preventive Protection System.
+The simulation validates the basic working concept of the **Industrial Transformer Health Monitoring SCADA System**.
 
 It demonstrates the integration of:
 
 **Sensors → ESP32 → Health Assessment → Risk Analysis → Protection → Firebase → SCADA Dashboard**
 
-The simulation can be further extended with additional transformer parameters, multiple transformer monitoring, historical data analysis, and advanced predictive maintenance algorithms.
+The system provides a practical approach for monitoring transformer operating conditions and responding to abnormal conditions through preventive protection mechanisms.
+
+The system can be further extended with additional transformer parameters, historical data analysis, improved predictive analytics, and advanced maintenance-support algorithms.

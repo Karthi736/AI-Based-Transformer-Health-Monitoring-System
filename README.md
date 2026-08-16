@@ -50,39 +50,49 @@ The overall monitoring workflow is:
 
 ## System Architecture
 
-The system is designed as a layered monitoring and protection architecture.
+The complete system follows the architecture:
 
-Transformer operating parameters are collected from the monitoring inputs and processed by the ESP32. The ESP32 evaluates the transformer condition, calculates the health score, determines the risk level, and controls the protection devices.
-
-The processed monitoring information is transmitted through Wi-Fi to Firebase. The SCADA web dashboard retrieves the cloud data and provides centralized remote visualization.
-
-![System Architecture](./Images/System_Architecture.png)
+**DHT22 + Load Input → ESP32 → Health Assessment → Risk Classification → Preventive Protection → Firebase → SCADA Dashboard**
 
 ---
 
-## Block Diagram
+## Documentation
 
-The block diagram represents the major functional units of the transformer monitoring and preventive protection system.
+### System Architecture
 
-![Block Diagram](./Images/Block_Diagram.png)
+<div align="center">
+
+<img src="./Documentation/System_Architecture.png" alt="System Architecture" width="90%">
+
+</div>
+
+### Block Diagram
+
+<div align="center">
+
+<img src="./Documentation/Block_Diagram.png" alt="Block Diagram" width="90%">
+
+</div>
+
+
+### Flowchart
+
+<div align="center">
+
+<img src="./Documentation/FlowChart.png" alt="Flowchart" width="90%">
+
+</div>
+
+### Circuit Diagram
+
+<div align="center">
+
+<img src="./Documentation/Circuit_Diagram.png" alt="Circuit Diagram" width="90%">
+
+</div>
 
 ---
 
-## Flowchart
-
-The flowchart represents the operating sequence from system initialization and sensor data acquisition to health assessment, risk classification, protection control, Firebase communication, and SCADA monitoring.
-
-![Flowchart](./Images/Flowchart.png)
-
----
-
-## Circuit Diagram
-
-The circuit diagram represents the ESP32-based hardware connections used for transformer monitoring, local display, alarm indication, cooling control, and preventive protection.
-
-![Circuit Diagram](./Images/Circuit_Diagram.png)
-
----
 
 ## Hardware Components
 

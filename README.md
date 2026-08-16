@@ -1,238 +1,88 @@
 # Industrial Transformer Health Monitoring SCADA System
 
-## 1. Project Overview
-
-The Industrial Transformer Health Monitoring SCADA System is an ESP32-based monitoring and preventive protection system designed to continuously monitor transformer operating conditions.
-
-The system collects temperature, humidity, and load-related parameters, processes the sensor data using the ESP32, calculates an overall transformer health score, determines the corresponding risk level, and activates preventive protection during critical operating conditions.
-
-The monitoring data is transmitted through Wi-Fi to Firebase and displayed on a web-based SCADA dashboard for remote monitoring.
-
-The system is designed around the following monitoring and protection workflow:
-
-Sensors → ESP32 → Health Assessment → Risk Analysis → Protection → Firebase → SCADA Dashboard
+An ESP32-based industrial transformer health monitoring and preventive protection system designed for real-time condition monitoring, health assessment, risk classification, automatic protection, cloud data transmission, and remote SCADA visualization.
 
 ---
 
-## 2. Objectives
+## Project Overview
 
-The main objectives of the project are:
+The Industrial Transformer Health Monitoring SCADA System monitors important transformer operating parameters such as temperature, humidity, and load.
 
-- To monitor transformer operating parameters in real time.
-- To monitor transformer temperature and humidity.
-- To simulate transformer load conditions.
-- To calculate a transformer health score.
-- To classify transformer operating conditions into different risk levels.
-- To provide automatic preventive protection during critical conditions.
-- To control cooling automatically using a servo motor.
-- To provide visual and audible alarms.
-- To display local transformer information using an I2C LCD.
-- To transmit monitoring data to Firebase using Wi-Fi.
-- To provide remote transformer monitoring through a SCADA web dashboard.
-- To support monitoring of multiple simulated transformers.
+The ESP32 acts as the main processing and control unit. Sensor data is continuously acquired and processed to calculate a transformer health score and determine the corresponding risk level.
+
+Based on the detected risk condition, the system can activate preventive protection mechanisms such as relay protection, servo-based cooling, LED indication, and buzzer alarm.
+
+The monitored data is transmitted through Wi-Fi to Firebase, which acts as the cloud data layer for the SCADA web dashboard.
+
+The overall system follows:
+
+**Sensors → ESP32 → Health Assessment → Risk Analysis → Protection → Firebase → SCADA Dashboard**
 
 ---
 
-## 3. System Architecture
+## Objectives
 
-The system consists of three major layers.
-
-### Field Monitoring Layer
-
-The field layer consists of:
-
-- Transformer units
-- DHT22 temperature and humidity sensor
-- Potentiometer for load simulation
-
-The sensors provide the operating parameters required for transformer condition assessment.
-
-### Data Processing and Protection Layer
-
-The ESP32 acts as the main controller.
-
-It performs:
-
-- Sensor data acquisition
-- Data processing
-- Health score calculation
-- Risk level classification
-- Protection decision
-- Relay control
-- Servo cooling control
-- LED indication
-- Buzzer alarm
-- LCD display update
-- Wi-Fi communication
-
-### Remote Monitoring Layer
-
-The remote monitoring layer consists of:
-
-- Wi-Fi communication
-- Firebase cloud database
-- SCADA web dashboard
-
-Firebase acts as the cloud data layer between the ESP32 monitoring system and the SCADA dashboard.
+- Monitor transformer operating parameters in real time.
+- Monitor temperature and humidity using DHT22.
+- Simulate transformer load using a potentiometer.
+- Calculate an overall transformer health score.
+- Classify transformer operating conditions into different risk levels.
+- Provide automatic preventive protection during critical conditions.
+- Control cooling using a servo motor.
+- Control protection through a relay module.
+- Generate visual and audible alarms.
+- Transmit monitoring data to Firebase using Wi-Fi.
+- Display transformer information through a remote SCADA web dashboard.
+- Support monitoring of multiple transformer units.
 
 ---
 
-## 4. Hardware Components
+## System Architecture
 
-| Component | Function |
-|---|---|
-| ESP32 | Main controller and Wi-Fi communication |
-| DHT22 | Temperature and humidity monitoring |
-| Potentiometer | Transformer load simulation |
-| 16×2 I2C LCD | Local parameter and status display |
-| Relay Module | Preventive protection / isolation |
-| Servo Motor | Automatic cooling representation |
-| LED | Visual warning indication |
-| Buzzer | Audible alarm indication |
-| Transformer Units | Simulated transformer monitoring targets |
+The system is divided into three major sections:
 
----
+1. Field Devices
+2. Data Processing and AI Core
+3. Remote Monitoring and SCADA Interface
 
-## 5. Monitoring Parameters
+![System Architecture](Documentation/System_Architecture.png)
 
-The system monitors the following parameters:
+### Field Devices
 
-| Parameter | Source | Purpose |
-|---|---|---|
-| Temperature | DHT22 | Transformer thermal condition |
-| Humidity | DHT22 | Environmental / insulation condition |
-| Load Percentage | Potentiometer | Transformer loading condition |
-| Health Score | ESP32 | Overall transformer condition |
-| Risk Level | ESP32 | Operating condition classification |
-| Relay Status | ESP32 | Protection status |
-| Cooling Status | Servo | Cooling operation |
-| Alarm Status | LED + Buzzer | Abnormal condition indication |
-| Fault Count | ESP32 | Critical fault tracking |
-| Transformer Status | ESP32 / Firebase | Overall operating state |
+The field section represents the monitored transformer units and their sensing parameters.
 
----
+The system supports four transformer simulation units:
 
-## 6. Health Assessment
+- TR-001
+- TR-002
+- TR-003
+- TR-004
 
-The ESP32 processes the monitored parameters and calculates a transformer health score.
-
-The health score represents the overall operating condition of the transformer.
-
-A higher health score represents a healthier operating condition, while a lower score represents increasing transformer risk.
-
-The health assessment is used as the basis for risk classification and preventive protection.
-
----
-
-## 7. Risk Classification
-
-The transformer condition is classified based on the calculated health score.
-
-| Health Score | Risk Level | System Response |
-|---|---|---|
-| 80 – 100 | LOW | Normal Monitoring |
-| 50 – 79 | MEDIUM | Warning Monitoring |
-| 25 – 49 | HIGH | Preventive Warning |
-| Below 25 | CRITICAL | Protection Activated |
-
-### LOW
-
-The transformer is operating under a normal condition.
-
-- Normal monitoring continues.
-- Relay remains in normal operating state.
-- Cooling remains inactive.
-- Alarm remains OFF.
-
-### MEDIUM
-
-The transformer condition requires attention.
-
-- Health score decreases.
-- Warning status is displayed.
-- Parameters continue to be monitored.
-
-### HIGH
-
-The transformer is approaching an unsafe operating condition.
-
-- Warning indication is generated.
-- Transformer condition is displayed on the LCD.
-- Monitoring continues with increased attention.
-
-### CRITICAL
-
-A critical transformer condition is detected.
-
-- Protection is activated.
-- Relay operation is initiated.
-- Servo cooling is activated.
-- LED turns ON.
-- Buzzer turns ON.
-- Critical status is transmitted to Firebase.
-- SCADA dashboard displays the critical condition.
-
----
-
-## 8. Preventive Protection
-
-The system provides automatic preventive protection when a critical condition is detected.
-
-The protection mechanism includes:
-
-1. Critical condition detection.
-2. Relay protection activation.
-3. Servo motor cooling activation.
-4. LED warning activation.
-5. Buzzer alarm activation.
-6. LCD status update.
-7. Firebase data update.
-8. SCADA dashboard status update.
-
-This provides an automated response to abnormal transformer operating conditions.
-
----
-
-## 9. Local LCD Monitoring
-
-The 16×2 I2C LCD provides local monitoring information.
-
-The display can show important transformer parameters such as:
-
-- Temperature
-- Load percentage
-- Health condition
-- Risk status
-- Protection status
-
-The LCD provides a local indication even when the system is being monitored remotely through the SCADA dashboard.
-
----
-
-## 10. Firebase Cloud Communication
-
-The ESP32 connects to the network through Wi-Fi and transmits transformer monitoring data to Firebase.
-
-The Firebase data layer can contain:
+The monitored inputs include:
 
 - Temperature
 - Humidity
 - Load Percentage
-- Health Score
-- Risk Level
-- Relay Status
-- Cooling Status
-- Alarm Status
-- Fault Count
-- Transformer Status
 
-Firebase provides the communication layer between the field monitoring system and the SCADA web dashboard.
+### Data Processing and AI Core
 
----
+The ESP32 performs the main monitoring and decision-making operations.
 
-## 11. SCADA Web Dashboard
+The processing section includes:
 
-The SCADA web dashboard provides remote monitoring of transformer operating conditions.
+- Sensor data acquisition
+- Health score calculation
+- Risk level analysis
+- Alarm generation
+- Relay protection
+- Servo cooling control
+- LCD monitoring
+
+### Remote Monitoring and Interface
+
+The ESP32 communicates with Firebase through Wi-Fi.
+
+Firebase stores the monitoring information, which is then used by the SCADA web dashboard for remote visualization.
 
 The dashboard displays:
 
@@ -247,236 +97,297 @@ The dashboard displays:
 - Fault Count
 - Transformer Status
 
-The dashboard is designed to provide an industrial-style monitoring interface for observing transformer conditions remotely.
+---
+
+## Block Diagram
+
+The block diagram represents the overall functional structure of the Industrial Transformer Health Monitoring SCADA System.
+
+![Block Diagram](Documentation/Block_Diagram.png)
+
+The main data flow is:
+
+**Transformer → Sensors → ESP32 → Health Assessment → Risk Analysis → Protection → Firebase → SCADA Dashboard**
 
 ---
 
-## 12. Multiple Transformer Monitoring
+## System Flowchart
 
-The system supports separate simulation instances for multiple transformer units.
+The flowchart represents the complete monitoring and preventive protection sequence.
 
-The simulated transformer units are:
+![System Flowchart](Documentation/FlowChart.png)
 
-- TR-001
-- TR-002
-- TR-003
-- TR-004
+The basic operating sequence is:
 
-Each simulation represents an individual transformer monitoring instance.
-
-The separate simulations can be used to demonstrate different transformer operating conditions and risk states.
-
----
-
-## 13. Simulation References
-
-### TR-001
-
-Transformer simulation instance: TR-001
-
-### TR-002
-
-Transformer simulation instance: TR-002
-
-### TR-003
-
-Transformer simulation instance: TR-003
-
-### TR-004
-
-Transformer simulation instance: TR-004
-
-The complete simulation references are maintained separately for each transformer unit.
+1. Start the system.
+2. Initialize ESP32 and connected devices.
+3. Establish Wi-Fi connection.
+4. Read temperature, humidity, and load values.
+5. Process the sensor values.
+6. Calculate the transformer health score.
+7. Determine the risk level.
+8. Update the local LCD display.
+9. Activate required protection and warning mechanisms.
+10. Send monitoring data to Firebase.
+11. Display the received data on the SCADA dashboard.
+12. Continue monitoring continuously.
 
 ---
 
-## 14. Simulation and Testing
+## Circuit Diagram
 
-The system was tested using an ESP32-based online simulation environment.
+The circuit diagram shows the ESP32-based hardware implementation used for the monitoring and protection system.
 
-Different operating conditions can be created by changing the temperature and load inputs.
+![Circuit Diagram](Documentation/Circuit_Diagram.png)
 
-### Test Case 1 – Normal Condition
+### Main Hardware Components
 
-Low temperature and normal load conditions are applied.
+| Component | Function |
+|---|---|
+| ESP32 | Main controller and Wi-Fi communication |
+| DHT22 | Temperature and humidity measurement |
+| Potentiometer | Transformer load simulation |
+| 16×2 I2C LCD | Local monitoring display |
+| Relay Module | Preventive protection |
+| Servo Motor | Cooling mechanism |
+| LED | Visual warning indication |
+| Buzzer | Audible alarm indication |
 
-Expected response:
+---
 
+## Hardware and Software
+
+### Hardware
+
+- ESP32
+- DHT22 Temperature and Humidity Sensor
+- Potentiometer
+- 16×2 I2C LCD
+- Relay Module
+- Servo Motor
+- LED
+- Buzzer
+- Resistor
+- Connecting Wires
+
+### Software and Platforms
+
+- Arduino IDE
+- Wokwi Simulator
+- Firebase
+- HTML
+- CSS
+- JavaScript
+- SCADA Web Dashboard
+- GitHub
+
+---
+
+## Monitoring Parameters
+
+| Parameter | Source | Purpose |
+|---|---|---|
+| Temperature | DHT22 | Transformer thermal condition |
+| Humidity | DHT22 | Environmental/insulation monitoring |
+| Load | Potentiometer | Load percentage simulation |
+| Health Score | ESP32 | Overall transformer condition |
+| Risk Level | ESP32 | Transformer risk classification |
+| Relay Status | ESP32 | Protection status |
+| Cooling Status | Servo | Cooling operation |
+| Alarm Status | LED + Buzzer | Abnormal condition indication |
+| Fault Count | ESP32 | Critical fault tracking |
+| Transformer Status | ESP32/Firebase | Overall operating condition |
+
+---
+
+## Health Assessment
+
+The ESP32 processes the monitored transformer parameters and calculates a health score.
+
+The health score represents the overall operating condition of the transformer.
+
+A higher health score represents a healthier operating condition, while a lower score indicates increasing operational risk.
+
+---
+
+## Risk Classification
+
+The transformer condition is classified based on the calculated health score.
+
+| Health Score | Risk Level | System Response |
+|---|---|---|
+| 80–100 | LOW | Normal Monitoring |
+| 50–79 | MEDIUM | Warning Monitoring |
+| 25–49 | HIGH | Warning / Preventive Action |
+| Below 25 | CRITICAL | Protection Activated |
+
+---
+
+## Preventive Protection
+
+When the transformer reaches a critical condition, the system automatically activates preventive protection mechanisms.
+
+### Critical Condition Response
+
+- Relay protection is activated.
+- Servo motor operates as a cooling mechanism.
+- LED warning is activated.
+- Buzzer alarm is activated.
+- LCD displays the updated transformer condition.
+- Firebase receives the updated status.
+- SCADA dashboard displays the critical condition.
+
+This provides an automated response to abnormal transformer operating conditions.
+
+---
+
+## Firebase Communication
+
+The ESP32 communicates with Firebase through Wi-Fi.
+
+Firebase acts as the cloud data layer between the ESP32 monitoring system and the SCADA web dashboard.
+
+The system can transmit parameters such as:
+
+- Temperature
+- Humidity
+- Load Percentage
+- Health Score
+- Risk Level
+- Relay Status
+- Cooling Status
+- Alarm Status
+- Fault Count
+- Transformer Status
+
+The SCADA dashboard retrieves the stored monitoring information and presents it through a web-based interface.
+
+---
+
+## SCADA Dashboard
+
+The SCADA web dashboard provides remote visualization of transformer operating conditions.
+
+The dashboard includes:
+
+- Real-Time Temperature
+- Humidity
+- Load Percentage
+- Health Score
+- Risk Level
+- Relay Status
+- Cooling Status
+- Alarm Status
+- Fault Count
+- Transformer Status
+
+The interface is designed for industrial-style monitoring and provides a centralized view of transformer health and protection status.
+
+---
+
+## Simulation
+
+The system was tested using four individual transformer simulation instances.
+
+### Transformer Simulations
+
+| Transformer | Simulation |
+|---|---|
+| TR-001 | [Open TR-001 Simulation](https://wokwi.com/projects/472072364712871937) |
+| TR-002 | [Open TR-002 Simulation](https://wokwi.com/projects/471997864432481281) |
+| TR-003 | [Open TR-003 Simulation](https://wokwi.com/projects/471997923499829249) |
+| TR-004 | [Open TR-004 Simulation](https://wokwi.com/projects/471997982880700417) |
+
+Each simulation represents an individual transformer monitoring unit.
+
+---
+
+## Simulation Test Conditions
+
+### Normal Condition
+
+Under normal operating conditions:
+
+- Temperature remains within the safe operating range.
+- Load remains at a normal level.
 - Health score remains high.
 - Risk level remains LOW.
-- Relay remains in normal state.
+- Relay protection remains normal.
 - Cooling remains inactive.
-- LED remains OFF.
-- Buzzer remains OFF.
-- Firebase receives normal operating data.
-- SCADA dashboard displays normal transformer status.
+- Alarm remains OFF.
 
-### Test Case 2 – Warning Condition
+### Warning Condition
 
-Temperature or load is gradually increased.
-
-Expected response:
+When temperature or load increases:
 
 - Health score decreases.
-- Risk level changes to MEDIUM or HIGH.
-- Warning condition is displayed.
-- LCD displays updated parameters.
-- Firebase receives updated monitoring data.
-- SCADA dashboard reflects the changed condition.
+- Risk level increases.
+- Warning indication is generated.
+- LCD displays the updated condition.
+- Monitoring data is updated.
 
-### Test Case 3 – Critical Condition
+### Critical Condition
 
-Temperature and/or load is increased to a critical operating condition.
+When transformer operating conditions reach a critical level:
 
-Expected response:
-
-- Health score falls below the critical threshold.
-- Risk level becomes CRITICAL.
+- Critical risk is detected.
 - Relay protection is activated.
 - Servo cooling is activated.
 - LED turns ON.
 - Buzzer turns ON.
-- LCD displays the critical condition.
 - Firebase data is updated.
-- SCADA dashboard displays the protection status.
+- SCADA dashboard displays the critical condition.
 
 ---
 
-## 15. Documentation References
+## Simulation Documentation
 
-The following project documentation files are included in the Documentation section.
+Detailed simulation information is available in:
 
-### Block Diagram
-
-`Block_Diagram.png`
-
-The block diagram represents the overall functional relationship between the transformer, sensors, ESP32, processing logic, protection devices, Firebase, and SCADA dashboard.
-
-### Flowchart
-
-`FlowChart.png`
-
-The flowchart represents the software execution sequence, including sensor acquisition, health assessment, risk classification, protection control, Firebase communication, and continuous monitoring.
-
-### Circuit Diagram
-
-`Circuit_Diagram.png`
-
-The circuit diagram represents the electrical connections between the ESP32, DHT22, potentiometer, LCD, relay, servo motor, LED, and buzzer.
-
-### System Architecture
-
-`System_Architecture.png`
-
-The system architecture illustrates the complete field-device, processing, cloud, and SCADA monitoring structure.
-
-### Simulation Details
-
-`Simulation_Details.md`
-
-The simulation details document describes the simulation platform, hardware components, operating conditions, risk classification, protection response, Firebase communication, and SCADA monitoring.
+[Simulation Details](Documentation/Simulation_Details.md)
 
 ---
 
-## 16. Project Workflow
+## Project Documentation
 
-The complete system operates according to the following workflow:
-
-1. Transformer parameters are sensed.
-2. DHT22 measures temperature and humidity.
-3. Potentiometer provides load simulation.
-4. ESP32 receives the sensor values.
-5. The values are processed.
-6. Transformer health score is calculated.
-7. Risk level is determined.
-8. Local LCD status is updated.
-9. Protection logic checks the risk condition.
-10. Normal conditions continue monitoring.
-11. Warning conditions generate warning indications.
-12. Critical conditions activate preventive protection.
-13. Relay protection is activated.
-14. Servo cooling is activated.
-15. LED and buzzer provide alarm indication.
-16. Transformer data is transmitted to Firebase.
-17. SCADA dashboard retrieves the cloud data.
-18. Transformer status is displayed remotely.
-19. The system continues monitoring.
+| Document | Description |
+|---|---|
+| [Block Diagram](Documentation/Block_Diagram.png) | Overall functional system structure |
+| [Circuit Diagram](Documentation/Circuit_Diagram.png) | ESP32 hardware connections |
+| [Flowchart](Documentation/FlowChart.png) | Monitoring and protection workflow |
+| [System Architecture](Documentation/System_Architecture.png) | Complete system architecture |
+| [Simulation Details](Documentation/Simulation_Details.md) | Simulation methodology and results |
 
 ---
 
-## 17. Key Features
+## Project Workflow
 
-- Real-time transformer monitoring
-- Temperature monitoring
-- Humidity monitoring
-- Load monitoring
-- Transformer health score
-- Risk level classification
-- Preventive protection
-- Relay-based protection
-- Automatic cooling control
-- LED warning indication
-- Buzzer alarm
-- Local LCD monitoring
-- Wi-Fi connectivity
-- Firebase cloud integration
-- SCADA web dashboard
-- Fault monitoring
-- Multiple transformer simulation support
+The complete system workflow is:
 
----
-
-## 18. Project Documentation Structure
-
-The repository documentation is organized as follows:
-
-Documentation/
-
-- Block_Diagram.png
-- Circuit_Diagram.png
-- FlowChart.png
-- System_Architecture.png
-- Simulation_Details.md
-
-The simulation files are maintained separately under the Simulation section.
-
----
-
-## 19. Future Enhancements
-
-The system can be further enhanced by implementing:
-
-- Additional transformer condition parameters
-- Oil temperature monitoring
-- Oil level monitoring
-- Transformer vibration monitoring
-- Current and voltage measurement
-- Power factor monitoring
-- Energy consumption monitoring
-- Historical trend analysis
-- Advanced predictive maintenance algorithms
-- Machine-learning-based fault prediction
-- Mobile monitoring application
-- Industrial communication protocols
-- Multi-transformer centralized SCADA monitoring
-- Long-term cloud data analytics
-
----
-
-## 20. Conclusion
-
-The Industrial Transformer Health Monitoring SCADA System demonstrates the integration of embedded monitoring, intelligent health assessment, preventive protection, cloud communication, and remote SCADA visualization.
-
-The ESP32 collects transformer operating parameters and processes the data to determine transformer health and risk level. Based on the detected condition, the system can activate preventive protection through relay control, automatic cooling, LED indication, and buzzer alarm.
-
-The monitored information is transmitted through Wi-Fi to Firebase and made available to the SCADA web dashboard for remote monitoring.
-
-The project provides a practical prototype for transformer condition monitoring and preventive protection and demonstrates how embedded systems, cloud platforms, and SCADA interfaces can be integrated into an industrial monitoring architecture.
-
----
-
-## Author
-
-**Karthikeyan M**  
-B.E. Electrical and Electronics Engineering  
-Industrial Transformer Health Monitoring SCADA System
+```text
+Transformer
+     ↓
+DHT22 + Load Input
+     ↓
+ESP32
+     ↓
+Sensor Data Processing
+     ↓
+Health Score Calculation
+     ↓
+Risk Level Classification
+     ↓
+┌─────────────────────────────┐
+│ LOW / MEDIUM / HIGH /       │
+│ CRITICAL                    │
+└─────────────────────────────┘
+     ↓
+Preventive Protection
+     ↓
+Relay + Servo + LED + Buzzer
+     ↓
+Firebase
+     ↓
+SCADA Web Dashboard
+     ↓
+Remote Transformer Monitoring

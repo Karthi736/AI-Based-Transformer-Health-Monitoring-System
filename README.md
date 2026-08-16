@@ -24,6 +24,7 @@ The system monitors transformer temperature, humidity, and load conditions, calc
 - Multi-transformer monitoring
 - Remote transformer status visualization
 
+
 ---
 
 ## System Architecture
@@ -53,7 +54,6 @@ The complete system follows the architecture:
 ![Circuit Diagram](./Images/Circuit_Diagram.png)
 
 ---
-
 ## Hardware Components
 
 - ESP32

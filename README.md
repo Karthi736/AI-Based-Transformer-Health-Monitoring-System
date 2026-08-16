@@ -3,7 +3,7 @@
 An ESP32-based transformer health monitoring and preventive protection system with Firebase cloud communication and an industrial SCADA web dashboard.
 
 The system monitors transformer temperature, humidity, and load conditions, calculates a transformer health score, classifies the transformer risk level, and activates preventive protection during critical conditions.
-
+ 
 ---
 
 ## Key Features
@@ -155,4 +155,7 @@ AI-Based-Transformer-Health-Monitoring-System/
 │
 ├── README.md
 └── LICENSE
---
+---
+---
+
+

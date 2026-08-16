@@ -380,6 +380,7 @@ B.E. Electrical and Electronics Engineering
 V.S.B College of Engineering Technical Campus  
 2023–2027
 
+---
 ## Project Structure
 
 ```text

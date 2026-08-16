@@ -113,7 +113,43 @@ The complete system follows the architecture:
 - **TR-004:** [View Simulation](https://wokwi.com/projects/471997982880700417)
 
 ---
+## Project Structure
 
+AI-Based-Transformer-Health-Monitoring-System/
+│
+├── Arduino_Code/
+│   └── Smart_Transformer_Health_Monitoring.ino
+│
+├── Dashboard/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
+├── Documentation/
+│   ├── Block_Diagram.png
+│   ├── Circuit_Diagram.png
+│   ├── Flowchart.png
+│   ├── System_Architecture.png
+│   └── Simulation_Details.md
+│
+├── Images/
+│   ├── Block_Diagram.png
+│   ├── Circuit_Diagram.png
+│   ├── Flowchart.png
+│   └── System_Architecture.png
+│
+├── Simulation/
+│   ├── TR-001
+│   ├── TR-002
+│   ├── TR-003
+│   └── TR-004
+│
+├── simulator/
+│   └── firebase-config.js
+│
+├── README.md
+└── LICENSE
+---
 ## Advantages
 
 - Continuous transformer condition monitoring

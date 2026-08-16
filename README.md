@@ -1,14 +1,28 @@
-![Industrial Transformer Health Monitoring SCADA System](./Images/Project_Banner.png)
-
 # Industrial Transformer Health Monitoring SCADA System
 
-An ESP32-based transformer health monitoring and preventive protection system with Firebase cloud communication and an industrial SCADA web dashboard.
+<div align="center">
 
-The system monitors transformer temperature, humidity, and load conditions, processes the collected parameters using ESP32, calculates a transformer health score, classifies the transformer risk level, and activates preventive protection during critical operating conditions.
+<img src="./Images/Project_Banner.png" alt="Industrial Transformer Health Monitoring SCADA System" width="100%">
 
-The system also supports multi-transformer monitoring through separate simulation units and provides remote monitoring through a Firebase-connected SCADA web dashboard.
+</div>
 
 ---
+
+<p align="center">
+
+![Platform](https://img.shields.io/badge/Platform-ESP32-blue?style=for-the-badge)
+![Language](https://img.shields.io/badge/Language-C%2FC%2B%2B-orange?style=for-the-badge)
+![IDE](https://img.shields.io/badge/IDE-Arduino_IDE-green?style=for-the-badge)
+![Cloud](https://img.shields.io/badge/Cloud-Firebase-yellow?style=for-the-badge)
+![SCADA](https://img.shields.io/badge/Monitoring-SCADA-red?style=for-the-badge)
+![Simulation](https://img.shields.io/badge/Simulation-Wokwi-success?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
+</p>
+
+---
+
+An ESP32-based transformer health monitoring and preventive protection system with Firebase cloud communication and an industrial SCADA web dashboard.
 
 ## Project Overview
 

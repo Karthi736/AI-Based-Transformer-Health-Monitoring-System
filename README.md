@@ -1,18 +1,18 @@
 # Industrial Transformer Health Monitoring SCADA System
 
-A real-time transformer health monitoring and preventive protection system built using ESP32, sensors, Firebase, and an industrial-style SCADA web dashboard.
+A real-time transformer health monitoring and preventive protection system developed using ESP32, sensors, Firebase, and a web-based industrial SCADA dashboard.
 
 The system continuously monitors transformer operating parameters, evaluates transformer health, classifies risk levels, activates preventive protection during critical conditions, and provides remote monitoring through a SCADA dashboard.
 
 ---
 
-## 📌 Project Overview
+## 1. Project Overview
 
-Transformers are critical components in electrical power systems. Abnormal temperature, excessive loading, and other operating conditions can affect transformer performance and reliability.
+Transformers are critical components in electrical power systems. Abnormal temperature, excessive loading, and other operating conditions can affect transformer performance, reliability, and operational safety.
 
-This project provides a smart monitoring approach using an ESP32-based edge controller.
+The Industrial Transformer Health Monitoring SCADA System provides a smart monitoring and preventive protection approach using an ESP32-based edge controller.
 
-The ESP32 collects transformer condition parameters, processes the data, calculates a health score, determines the risk level, and activates preventive protection when critical conditions are detected.
+The ESP32 collects transformer condition parameters, processes the collected data, calculates a health score, determines the corresponding risk level, and activates preventive protection when critical conditions are detected.
 
 The monitoring data is transmitted through Wi-Fi to Firebase and visualized through a web-based SCADA dashboard.
 
@@ -22,7 +22,9 @@ The monitoring data is transmitted through Wi-Fi to Firebase and visualized thro
 
 ---
 
-## 🎯 Objectives
+## 2. Objectives
+
+The main objectives of the project are:
 
 - Monitor transformer operating conditions in real time.
 - Measure temperature and humidity.
@@ -38,9 +40,9 @@ The monitoring data is transmitted through Wi-Fi to Firebase and visualized thro
 
 ---
 
-## ⚙️ Key Features
+## 3. Key Features
 
-### Real-Time Monitoring
+### Real-Time Transformer Monitoring
 
 The system continuously monitors:
 
@@ -57,13 +59,13 @@ The system continuously monitors:
 
 ### Health Assessment
 
-The ESP32 processes the monitored parameters and calculates a transformer health score.
+The ESP32 processes the monitored parameters and calculates a transformer health score to represent the overall operating condition.
 
 ### Risk Classification
 
 The transformer condition is classified into four levels:
 
-| Health Score | Risk Level | Response |
+| Health Score | Risk Level | System Response |
 |---|---|---|
 | 80 – 100 | LOW | Normal Monitoring |
 | 50 – 79 | MEDIUM | Warning Monitoring |
@@ -74,17 +76,17 @@ The transformer condition is classified into four levels:
 
 During critical conditions, the system can:
 
-- Activate relay protection
-- Activate servo-based cooling
-- Turn ON LED warning
-- Activate buzzer alarm
-- Update LCD status
-- Update Firebase data
-- Display the critical condition on the SCADA dashboard
+- Activate relay protection.
+- Activate servo-based cooling.
+- Turn ON the LED warning indicator.
+- Activate the buzzer alarm.
+- Update the LCD status.
+- Update Firebase data.
+- Display the critical condition on the SCADA dashboard.
 
 ---
 
-## 🔌 Hardware Components
+## 4. Hardware Components
 
 | Component | Purpose |
 |---|---|
@@ -99,7 +101,7 @@ During critical conditions, the system can:
 
 ---
 
-## 💻 Software & Technologies
+## 5. Software and Technologies
 
 - ESP32
 - Arduino IDE
@@ -109,18 +111,66 @@ During critical conditions, the system can:
 - HTML
 - CSS
 - JavaScript
-- SCADA Web Dashboard
-- Online Electronics Simulation Platform
+- Web-based SCADA Dashboard
+- Online Electronics Simulation Environment
 
 ---
 
-## ☁️ Firebase Integration
+## 6. System Architecture
 
-The ESP32 communicates with Firebase through Wi-Fi.
+The system consists of four major layers.
 
-The cloud layer stores and provides transformer monitoring information for the SCADA dashboard.
+### 6.1 Transformer and Field Layer
 
-The transmitted parameters include:
+This layer represents the monitored transformer units and their operating parameters.
+
+The monitored parameters include:
+
+- Temperature
+- Humidity
+- Load
+
+### 6.2 Edge Control Layer
+
+The ESP32 acts as the main edge controller.
+
+Its responsibilities include:
+
+- Sensor data acquisition
+- Data processing
+- Health score calculation
+- Risk classification
+- Protection decision
+- Local status control
+- Firebase communication
+
+### 6.3 Local Protection Layer
+
+The local protection system consists of:
+
+- 16×2 I2C LCD
+- Relay Module
+- Servo Motor
+- LED
+- Buzzer
+
+### 6.4 Cloud and SCADA Layer
+
+The cloud and monitoring layer consists of:
+
+- Wi-Fi communication
+- Firebase
+- SCADA Web Dashboard
+
+The Firebase layer provides cloud-based data handling between the ESP32 monitoring units and the SCADA dashboard.
+
+---
+
+## 7. Firebase Integration
+
+The ESP32 uses Wi-Fi communication to transmit transformer monitoring data to Firebase.
+
+The transmitted data can include:
 
 - Temperature
 - Humidity
@@ -137,13 +187,15 @@ The transmitted parameters include:
 
 **ESP32 → Wi-Fi → Firebase → SCADA Web Dashboard**
 
+Firebase acts as the cloud data layer between the ESP32 monitoring system and the SCADA web dashboard.
+
 ---
 
-## 🖥️ SCADA Dashboard
+## 8. SCADA Dashboard
 
 The web-based SCADA dashboard provides remote visualization of transformer operating conditions.
 
-The dashboard includes:
+The dashboard provides:
 
 - Transformer identification
 - Real-time temperature
@@ -157,147 +209,130 @@ The dashboard includes:
 - Fault count
 - Transformer operating status
 
-The dashboard is designed with an industrial monitoring interface for easy visualization of transformer conditions.
+The dashboard is designed using an industrial monitoring interface to provide clear visualization of transformer conditions and protection status.
 
 ---
 
-## 🔧 Multiple Transformer Monitoring
+## 9. Multiple Transformer Monitoring
 
 The system architecture supports multiple transformer monitoring units.
 
-The simulation includes:
+The project includes separate simulation units for:
 
 - TR-001
 - TR-002
 - TR-003
 - TR-004
 
-Each transformer can be monitored separately through the SCADA dashboard.
+Each transformer unit can be monitored independently through the SCADA dashboard.
+
+### Transformer Simulation Units
+
+| Transformer | Simulation |
+|---|---|
+| TR-001 | [Open TR-001 Simulation](YOUR_TR001_LINK) |
+| TR-002 | [Open TR-002 Simulation](YOUR_TR002_LINK) |
+| TR-003 | [Open TR-003 Simulation](YOUR_TR003_LINK) |
+| TR-004 | [Open TR-004 Simulation](YOUR_TR004_LINK) |
+
+The individual transformer simulations represent separate monitoring units connected to the overall SCADA monitoring architecture.
 
 ---
 
-## 🧪 Simulation
+## 10. Simulation
 
-The system was tested using an online electronics simulation environment with an ESP32-based monitoring setup.
+The system was developed and tested using an online electronics simulation environment with an ESP32-based monitoring setup.
 
 The simulation demonstrates:
 
-1. ESP32 initialization
-2. Sensor data acquisition
-3. Temperature and humidity monitoring
-4. Load percentage simulation
-5. Health score calculation
-6. Risk classification
-7. LCD monitoring
-8. Preventive protection
-9. Cooling control
-10. Alarm generation
-11. Firebase communication
-12. SCADA dashboard visualization
+1. ESP32 initialization.
+2. Sensor and output device configuration.
+3. Wi-Fi connection.
+4. Temperature and humidity monitoring.
+5. Load percentage simulation.
+6. Health score calculation.
+7. Risk classification.
+8. LCD monitoring.
+9. Preventive protection.
+10. Cooling control.
+11. Alarm generation.
+12. Firebase communication.
+13. SCADA dashboard visualization.
 
-### Simulation Test Conditions
+---
 
-#### Normal Condition
+## 11. Simulation Test Conditions
+
+Different operating conditions can be simulated by changing the temperature and load inputs.
+
+### Normal Condition
 
 Low temperature and normal load are applied.
 
-**Expected response:**
+Expected response:
 
-- LOW risk
-- Normal monitoring
-- Relay remains inactive
-- Cooling remains inactive
-- Alarm remains OFF
+- LOW risk.
+- Normal monitoring.
+- Relay remains in normal state.
+- Cooling remains inactive.
+- Alarm remains OFF.
 
-#### Warning Condition
+### Warning Condition
 
 Temperature or load is increased.
 
-**Expected response:**
+Expected response:
 
-- Health score decreases
-- Risk level increases
-- Warning indication is generated
-- LCD displays updated condition
+- Health score decreases.
+- Risk level increases.
+- Warning indication is generated.
+- LCD displays the updated condition.
 
-#### Critical Condition
+### Critical Condition
 
-Temperature and/or load reaches a critical level.
+Temperature and/or load conditions are increased to a critical level.
 
-**Expected response:**
+Expected response:
 
-- CRITICAL risk detected
-- Relay protection activated
-- Servo cooling activated
-- LED activated
-- Buzzer activated
-- Firebase updated
-- SCADA dashboard displays critical status
-
----
-
-## 📊 System Architecture
-
-The system consists of four major layers:
-
-### 1. Field / Transformer Layer
-
-- Transformer units
-- Temperature and humidity sensing
-- Load simulation
-
-### 2. Edge Control Layer
-
-- ESP32
-- Sensor data acquisition
-- Data processing
-- Health score calculation
-- Risk classification
-- Protection decision
-
-### 3. Local Protection Layer
-
-- LCD
-- Relay
-- Servo cooling
-- LED
-- Buzzer
-
-### 4. Cloud & SCADA Layer
-
-- Wi-Fi
-- Firebase
-- SCADA web dashboard
-- Remote monitoring
-- Status visualization
+- CRITICAL risk is detected.
+- Relay protection is activated.
+- Servo cooling is activated.
+- LED turns ON.
+- Buzzer turns ON.
+- Firebase data is updated.
+- SCADA dashboard displays critical status.
 
 ---
 
-## 📁 Repository Structure
+## 12. Preventive Protection Logic
+
+The preventive protection system responds when transformer operating conditions reach a critical state.
 
 ```text
-Industrial-Transformer-Health-Monitoring-SCADA-System/
-│
-├── Dashboard/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-├── Documentation/
-│   ├── Block_Diagram.png
-│   ├── Circuit_Diagram.png
-│   ├── Flowchart.png
-│   ├── System_Architecture.png
-│   └── Simulation_Details.md
-│
-├── Images/
-│   └── Project images and dashboard screenshots
-│
-├── Simulation/
-│   └── Transformer simulation files
-│
-├── simulator/
-│   └── Firebase / simulator configuration files
-│
-├── README.md
-└── LICENSE
+Sensor Monitoring
+       |
+       v
+Parameter Processing
+       |
+       v
+Health Score Calculation
+       |
+       v
+Risk Classification
+       |
+       v
++-------------------+
+|    Risk Level     |
++-------------------+
+       |
+   +---+---+
+   |       |
+Normal   Critical
+   |       |
+   v       v
+Monitor  Protection
+           |
+      +----+----+----+
+      |         |    |
+      v         v    v
+    Relay     Cooling Alarm

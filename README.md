@@ -1,3 +1,9 @@
+![Industrial Transformer Health Monitoring SCADA System](./Images/Project_Banner.png)
+
+# Industrial Transformer Health Monitoring SCADA System
+
+An ESP32-based transformer health monitoring and preventive protection system with Firebase cloud communication and an industrial SCADA web dashboard.
+
 # Industrial Transformer Health Monitoring SCADA System
 
 An ESP32-based transformer health monitoring and preventive protection system with Firebase cloud communication and an industrial SCADA web dashboard.

@@ -391,3 +391,79 @@ Firebase
 SCADA Web Dashboard
      ↓
 Remote Transformer Monitoring
+
+
+
+Applications
+
+The system can be used as a prototype for:
+
+Transformer condition monitoring
+Industrial equipment monitoring
+Preventive protection systems
+Remote electrical asset monitoring
+IoT-based electrical monitoring
+SCADA-based equipment supervision
+Smart substation monitoring concepts
+Future Enhancements
+
+The system can be further enhanced by integrating:
+
+Current and voltage sensors
+Transformer oil temperature monitoring
+Oil level monitoring
+Vibration monitoring
+Power factor monitoring
+Energy measurement
+Historical trend analysis
+Advanced predictive maintenance algorithms
+Multiple transformer dashboards
+Mobile monitoring
+Automated maintenance alerts
+Advanced machine learning models
+Conclusion
+
+The Industrial Transformer Health Monitoring SCADA System demonstrates the integration of embedded monitoring, preventive protection, cloud communication, and remote SCADA visualization.
+
+The ESP32 collects transformer operating parameters, processes the data, calculates the health condition, determines the risk level, and activates appropriate protection mechanisms.
+
+Firebase provides the cloud communication layer, while the SCADA web dashboard provides remote visualization of the transformer condition.
+
+The four transformer simulations, TR-001, TR-002, TR-003, and TR-004, demonstrate how the monitoring concept can be extended to multiple transformer units.
+
+The overall system demonstrates the following architecture:
+
+Field Sensors → ESP32 → Health Assessment → Risk Classification → Preventive Protection → Firebase → SCADA Dashboard
+
+Author
+
+Karthikeyan M
+
+Electrical and Electronics Engineering
+
+Industrial Transformer Health Monitoring SCADA System
+
+
+
+### GitHub folder structure
+
+
+Make sure your repository looks like this:
+
+
+```text
+AI-Based-Transformer-Health-Monitoring-System/
+│
+├── Documentation/
+│   ├── Block_Diagram.png
+│   ├── Circuit_Diagram.png
+│   ├── FlowChart.png
+│   ├── System_Architecture.png
+│   └── Simulation_Details.md
+│
+├── Dashboard/
+├── Images/
+├── Simulation/
+├── simulator/
+├── README.md
+└── ...

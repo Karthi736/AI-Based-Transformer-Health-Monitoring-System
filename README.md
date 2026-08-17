@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="./Images/Project_Banner.png" alt="Industrial Transformer Health Monitoring SCADA System" width="100%">
+<img src="./images/Project_Banner.png" alt="Industrial Transformer Health Monitoring SCADA System" width="100%">
 
 </div>
 
